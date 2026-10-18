@@ -234,6 +234,8 @@ describe("admin user detail", () => {
     );
     await openBob();
     const field = await screen.findByLabelText("Slot quota");
+    // The loaded quota replaces the field's value; type only after it arrived.
+    await waitFor(() => expect(field).toHaveValue("3"));
     await user.clear(field);
     await user.type(field, "-1");
     await user.click(screen.getByRole("button", { name: "Set" }));
@@ -251,6 +253,8 @@ describe("admin user detail", () => {
     );
     await openBob();
     const field = await screen.findByLabelText("Slot quota");
+    // The loaded quota replaces the field's value; type only after it arrived.
+    await waitFor(() => expect(field).toHaveValue("3"));
     await user.clear(field);
     await user.type(field, "100000");
     await user.click(screen.getByRole("button", { name: "Set" }));
