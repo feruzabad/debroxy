@@ -12,6 +12,20 @@ updates:
     schedule: {interval: weekly}
     groups:
       web: {patterns: ["*"]}
+    ignore:
+      # Major versions follow the Node runtime (web/.nvmrc, Dockerfile, Makefile).
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
+
+  # openapi-typescript needs the TypeScript 5 compiler API.
+  - package-ecosystem: npm
+    directory: /web/tools/openapi-typescript
+    schedule: {interval: weekly}
+    groups:
+      openapi-typescript: {patterns: ["*"]}
+    ignore:
+      - dependency-name: typescript
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: github-actions
     directory: /
