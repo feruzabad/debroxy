@@ -19,7 +19,8 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    "baseUrl": ".",
+    // TypeScript 6+ no longer loads every @types package; the unit tests use node:*.
+    "types": ["node"],
     "paths": {
       "@/*": ["./src/*"]
     }

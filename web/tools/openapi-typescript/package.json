@@ -1,0 +1,14 @@
+{
+  "name": "debroxy-web-openapi-typescript",
+  "private": true,
+  "license": "MIT",
+  "description": "Generates web/src/api/generated. openapi-typescript needs the TypeScript 5 compiler API, which TypeScript 7 no longer has, so it runs here with its own TypeScript.",
+  "packageManager": "pnpm@10.34.7",
+  "devDependencies": {
+    "openapi-typescript": "7.13.0",
+    "typescript": "5.9.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": []
+  }
+}
