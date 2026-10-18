@@ -7,7 +7,7 @@
 # build platform; Go cross-compiles for the target, and the final stage only
 # copies files.
 
-FROM --platform=$BUILDPLATFORM node:24.21.0-alpine AS web
+FROM --platform=$BUILDPLATFORM node:26.12.0-alpine AS web
 WORKDIR /src/web
 ENV COREPACK_HOME=/tmp/corepack
 COPY web/package.json web/pnpm-lock.yaml ./
