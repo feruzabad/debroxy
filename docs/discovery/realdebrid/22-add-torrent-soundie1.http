@@ -1,0 +1,13 @@
+### PUT https://api.real-debrid.com/rest/1.0/torrents/addTorrent
+### extra-args: --data-binary @soundie-the-hut-sut-song-archive.torrent -H Content-Type: application/x-bittorrent
+### user-agent: debroxy-discovery/0.1  status+time: 201 1.138831s  at: 2026-10-11T14:27:38Z
+
+HTTP/2 201 
+date: Sun, 11 Oct 2026 14:27:38 GMT
+content-type: application/json
+x-served-by: B5
+
+{
+	"id": "6R344WOQR76AQ",
+	"uri": "https:\/\/api.real-debrid.com\/rest\/1.0\/torrents\/info\/6R344WOQR76AQ"
+}

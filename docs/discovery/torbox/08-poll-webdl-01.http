@@ -1,0 +1,18 @@
+### GET https://api.torbox.app/v1/api/webdl/mylist?id=1975274&bypass_cache=true
+### extra-args: 
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.377564s  at: 2026-10-11T13:40:48Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 13:40:48 GMT
+content-type: application/json
+server: cloudflare
+vary: Accept-Encoding
+vary: Origin
+x-ratelimit-limit: 300
+x-ratelimit-remaining: 299
+x-ratelimit-reset: 1791726109.5175364
+retry-after: 61
+speculation-rules: "/cdn-cgi/speculation"
+cf-cache-status: DYNAMIC
+
+{"success":true,"error":null,"detail":"web downloads list retrieved successfully.","data":{"id":1975274,"created_at":"2026-10-11T13:40:37Z","updated_at":"2026-10-11T13:40:45Z","auth_id":"<redacted>","name":"AvengeDe1942_512kb.mp4","hash":"11174b255e3c8dfa00e77afbdd7c3d4e","download_state":"completed","download_speed":0,"original_url":"https://archive.org/download/AvengeDe1942/AvengeDe1942_512kb.mp4","eta":0,"progress":1,"size":7578104,"download_id":null,"files":[{"id":0,"md5":null,"hash":"11174b255e3c8dfa00e77afbdd7c3d4e","name":"AvengeDe1942_512kb.mp4/AvengeDe1942_512kb.mp4","size":7578104,"zipped":false,"s3_path":"11174b255e3c8dfa00e77afbdd7c3d4e/AvengeDe1942_512kb.mp4/AvengeDe1942_512kb.mp4","infected":false,"mimetype":"video/mp4","short_name":"AvengeDe1942_512kb.mp4","absolute_path":"/app/downloads/11174b255e3c8dfa00e77afbdd7c3d4e/AvengeDe1942_512kb.mp4/AvengeDe1942_512kb.mp4","opensubtitles_hash":"48920686f37d8cbf"}],"active":false,"cached":true,"download_present":true,"download_finished":true,"expires_at":"2026-11-10T13:40:45Z","error":null,"cached_at":"2026-10-11T13:40:45Z","server":65,"alternative_hashes":["baac8779f00c2bdb3b8d2df4a40b6fd8","0c383c63a3d01e5862fca44c322e0652","e100cb86e8b2d96f39f62328382f69d1"],"tags":[],"airlocked":false}}

@@ -1,0 +1,16 @@
+[
+ {
+  "at": "2026-10-11T14:06:04Z",
+  "method": "POST",
+  "path": "/debroxy-webhook/<redacted-secret>",
+  "headers": {
+   "Content-Length": "202",
+   "accept": "*/*",
+   "accept-encoding": "gzip, deflate, zstd",
+   "content-type": "application/json",
+   "user-agent": "TorBox API",
+   "x-forwarded-proto": "https"
+  },
+  "body": "{\"type\":\"download.completed\",\"timestamp\":\"2026-10-11T14:06:04.397675+00:00\",\"data\":{\"title\":\"Download Completed\",\"message\":\"Download AvengeDe1942.ogv has finished processing and is ready to download.\"}}"
+ }
+]

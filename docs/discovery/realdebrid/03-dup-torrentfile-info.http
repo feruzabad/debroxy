@@ -1,0 +1,36 @@
+### GET https://api.real-debrid.com/rest/1.0/torrents/info/DI6NWHCOY5XAE
+### extra-args: 
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.127442s  at: 2026-10-11T13:49:05Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 13:49:05 GMT
+content-type: application/json
+vary: Accept-Encoding
+vary: Accept-Encoding
+x-served-by: B3
+x-cached: MISS
+
+{
+	"id": "DI6NWHCOY5XAE",
+	"filename": "debian-13.7.0-amd64-netinst.iso",
+	"original_filename": "debian-13.7.0-amd64-netinst.iso",
+	"hash": "7acf8fb590b2060dd9c3146ef770169d593433b0",
+	"bytes": 792723456,
+	"original_bytes": 792723456,
+	"host": "real-debrid.com",
+	"split": 2000,
+	"progress": 0,
+	"status": "waiting_files_selection",
+	"added": "2026-10-11T15:39:40.000Z",
+	"files": [
+		{
+			"id": 1,
+			"path": "\/debian-13.7.0-amd64-netinst.iso",
+			"bytes": 792723456,
+			"selected": 0
+		}
+	],
+	"links": [
+		
+	]
+}

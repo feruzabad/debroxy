@@ -1,0 +1,18 @@
+### GET https://api.torbox.app/v1/api/user/me
+### extra-args: 
+### user-agent: debroxy-discovery/0.1  status+time: 403 0.279456s  at: 2026-10-11T13:26:56Z
+
+HTTP/2 403 
+date: Sun, 11 Oct 2026 13:26:56 GMT
+content-type: application/json
+server: cloudflare
+vary: Accept-Encoding
+vary: Origin
+x-ratelimit-limit: 300
+x-ratelimit-remaining: 299
+x-ratelimit-reset: 1791725277.0824652
+retry-after: 61
+speculation-rules: "/cdn-cgi/speculation"
+cf-cache-status: DYNAMIC
+
+{"success":false,"error":"AUTH_ERROR","detail":"An error occurred while verifying your token. Please try again.","data":null}

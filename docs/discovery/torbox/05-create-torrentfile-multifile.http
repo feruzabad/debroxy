@@ -1,0 +1,17 @@
+### POST https://api.torbox.app/v1/api/torrents/createtorrent
+### extra-args: -F file=@avenge-december-7-1942-archive.torrent -F allow_zip=true
+### user-agent: debroxy-discovery/0.1  status+time: 200 3.746928s  at: 2026-10-11T13:28:55Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 13:28:55 GMT
+content-type: application/json
+server: cloudflare
+vary: Accept-Encoding
+vary: Origin
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 58
+x-ratelimit-reset: 1791728887.993552
+retry-after: 3553
+cf-cache-status: DYNAMIC
+
+{"success":true,"error":null,"detail":"Torrent Added Successfully","data":{"hash":"986fd1910cfe8d20052fe3ee49f5ded6acf0015a","torrent_id":116409459,"auth_id":"<redacted>"}}

@@ -1,0 +1,19 @@
+### GET https://nexus-182.ceur.tb-cdn.st/dld/d05be61c-9d9c-40bc-a419-124376cd66af?<redacted-query><redacted-api-key>
+### extra-args: -H Range: bytes=0-1048575
+### user-agent: debroxy-discovery/0.1  status+time: 206 0.341510s  at: 2026-10-11T13:39:20Z
+
+HTTP/1.1 206 Partial Content
+Date: Sun, 11 Oct 2026 13:39:20 GMT
+Content-Type: application/octet-stream
+Content-Length: 1048576
+Connection: keep-alive
+x-range-cache: filled
+etag: "6aa6157b-2f400000"
+accept-ranges: bytes
+content-disposition: attachment; filename="debian-13.7.0-amd64-netinst.iso"; filename*=UTF-8''debian-13.7.0-amd64-netinst.iso
+vary: Origin, Access-Control-Request-Method, Access-Control-Request-Headers
+content-range: bytes 0-1048575/792723456
+server: Nexus/1.0
+
+<binary body: 1048576 bytes>
+

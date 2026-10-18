@@ -1,0 +1,8 @@
+# Server for downloads (ddd-rules IN-1). Not strict: the response is a
+# stream with copied headers.
+package: download
+generate:
+  std-http-server: true
+output-options:
+  include-operation-ids: [download, downloadHead]
+output: api.gen.go

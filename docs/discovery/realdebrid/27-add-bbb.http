@@ -1,0 +1,13 @@
+### PUT https://api.real-debrid.com/rest/1.0/torrents/addTorrent
+### extra-args: --data-binary @big-buck-bunny.torrent -H Content-Type: application/x-bittorrent
+### user-agent: debroxy-discovery/0.1  status+time: 201 0.237101s  at: 2026-10-11T14:38:48Z
+
+HTTP/2 201 
+date: Sun, 11 Oct 2026 14:38:48 GMT
+content-type: application/json
+x-served-by: B3
+
+{
+	"id": "JU4TNWHCAZXAA",
+	"uri": "https:\/\/api.real-debrid.com\/rest\/1.0\/torrents\/info\/JU4TNWHCAZXAA"
+}

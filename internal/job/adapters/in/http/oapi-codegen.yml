@@ -1,0 +1,10 @@
+# Server for the job HTTP adapter (ddd-rules IN-1). The webhook operation
+# has its own adapter in ../webhook (spec §3.2).
+package: http
+generate:
+  std-http-server: true
+  strict-server: true
+  models: true
+output-options:
+  exclude-operation-ids: [handleProviderWebhook, watchJobs]
+output: api.gen.go

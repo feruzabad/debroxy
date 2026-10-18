@@ -1,0 +1,19 @@
+### GET https://api.torbox.app/v1/api/user/me
+### extra-args: 
+### user-agent: debroxy-discovery/0.1  status+time: 401 0.904869s  at: 2026-10-11T13:26:57Z
+
+HTTP/2 401 
+date: Sun, 11 Oct 2026 13:26:57 GMT
+content-type: application/json
+content-length: 30
+server: cloudflare
+www-authenticate: Bearer
+x-ratelimit-limit: 300
+x-ratelimit-remaining: 299
+x-ratelimit-reset: 1791725278.2031424
+retry-after: 61
+vary: Origin
+cf-cache-status: DYNAMIC
+speculation-rules: "/cdn-cgi/speculation"
+
+{"detail":"Not authenticated"}

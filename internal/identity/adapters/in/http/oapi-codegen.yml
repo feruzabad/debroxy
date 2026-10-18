@@ -1,0 +1,7 @@
+# Server for the identity HTTP adapter (ddd-rules IN-1).
+package: http
+generate:
+  std-http-server: true
+  strict-server: true
+  models: true
+output: api.gen.go

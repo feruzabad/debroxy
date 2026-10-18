@@ -1,0 +1,17 @@
+### POST https://api.torbox.app/v1/api/webdl/controlwebdownload
+### extra-args: -H Content-Type: application/json -d {"webdl_id":1975274,"operation":"delete"}
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.357392s  at: 2026-10-11T14:06:55Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 14:06:55 GMT
+content-type: application/json
+server: cloudflare
+vary: Accept-Encoding
+vary: Origin
+x-ratelimit-limit: 300
+x-ratelimit-remaining: 299
+x-ratelimit-reset: 1791727676.6727505
+retry-after: 61
+cf-cache-status: DYNAMIC
+
+{"success":true,"error":null,"detail":"Web download deleted successfully.","data":null}

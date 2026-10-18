@@ -1,0 +1,122 @@
+### GET https://api.real-debrid.com/rest/1.0/torrents/info/6R344WOQR76AQ
+### extra-args: 
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.155128s  at: 2026-10-11T14:28:20Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 14:28:20 GMT
+content-type: application/json
+vary: Accept-Encoding
+vary: Accept-Encoding
+x-served-by: B5
+x-cached: MISS
+
+{
+	"id": "6R344WOQR76AQ",
+	"filename": "soundie_1",
+	"original_filename": "soundie_1",
+	"hash": "a463205fd822661d514e84b30f5924117bd2c46d",
+	"bytes": 196244141,
+	"original_bytes": 196380191,
+	"host": "real-debrid.com",
+	"split": 2000,
+	"progress": 45.4,
+	"status": "downloading",
+	"added": "2026-10-11T16:27:38.000Z",
+	"files": [
+		{
+			"id": 1,
+			"path": "\/__ia_thumb.jpg",
+			"bytes": 7115,
+			"selected": 0
+		},
+		{
+			"id": 2,
+			"path": "\/soundie_1.asr.js",
+			"bytes": 12953,
+			"selected": 0
+		},
+		{
+			"id": 3,
+			"path": "\/soundie_1.asr.srt",
+			"bytes": 1440,
+			"selected": 0
+		},
+		{
+			"id": 4,
+			"path": "\/soundie_1.asr.vtt",
+			"bytes": 421,
+			"selected": 0
+		},
+		{
+			"id": 5,
+			"path": "\/soundie_1.gif",
+			"bytes": 65196,
+			"selected": 0
+		},
+		{
+			"id": 6,
+			"path": "\/soundie_1.mp3",
+			"bytes": 1319424,
+			"selected": 1
+		},
+		{
+			"id": 7,
+			"path": "\/soundie_1.mp4",
+			"bytes": 17174386,
+			"selected": 1
+		},
+		{
+			"id": 8,
+			"path": "\/soundie_1.mpeg",
+			"bytes": 84015108,
+			"selected": 1
+		},
+		{
+			"id": 9,
+			"path": "\/soundie_1.ogv",
+			"bytes": 12349054,
+			"selected": 1
+		},
+		{
+			"id": 10,
+			"path": "\/soundie_1.png",
+			"bytes": 11638,
+			"selected": 0
+		},
+		{
+			"id": 11,
+			"path": "\/soundie_1_512kb.mp4",
+			"bytes": 11969161,
+			"selected": 1
+		},
+		{
+			"id": 12,
+			"path": "\/soundie_1_edit.mp4",
+			"bytes": 69417008,
+			"selected": 1
+		},
+		{
+			"id": 13,
+			"path": "\/soundie_1_intermediate_asr.json",
+			"bytes": 531,
+			"selected": 0
+		},
+		{
+			"id": 14,
+			"path": "\/soundie_1_meta.xml",
+			"bytes": 958,
+			"selected": 0
+		},
+		{
+			"id": 15,
+			"path": "\/soundie_1_whisper_asr.json",
+			"bytes": 35798,
+			"selected": 0
+		}
+	],
+	"links": [
+		
+	],
+	"speed": 2120149,
+	"seeders": 0
+}

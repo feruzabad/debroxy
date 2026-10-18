@@ -1,0 +1,13 @@
+### PUT https://api.real-debrid.com/rest/1.0/torrents/addTorrent
+### extra-args: --data-binary @avenge-december-7-1942-archive.torrent -H Content-Type: application/x-bittorrent
+### user-agent: debroxy-discovery/0.1  status+time: 201 1.134044s  at: 2026-10-11T14:14:11Z
+
+HTTP/2 201 
+date: Sun, 11 Oct 2026 14:14:11 GMT
+content-type: application/json
+x-served-by: B1
+
+{
+	"id": "ACDIALU45Q7PS",
+	"uri": "https:\/\/api.real-debrid.com\/rest\/1.0\/torrents\/info\/ACDIALU45Q7PS"
+}

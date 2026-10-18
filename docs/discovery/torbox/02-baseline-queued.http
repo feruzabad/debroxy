@@ -1,0 +1,18 @@
+### GET https://api.torbox.app/v1/api/queued/getqueued?bypass_cache=true
+### extra-args: 
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.274139s  at: 2026-10-11T13:27:27Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 13:27:27 GMT
+content-type: application/json
+server: cloudflare
+vary: Accept-Encoding
+vary: Origin
+x-ratelimit-limit: 300
+x-ratelimit-remaining: 299
+x-ratelimit-reset: 1791725308.6962404
+retry-after: 61
+speculation-rules: "/cdn-cgi/speculation"
+cf-cache-status: DYNAMIC
+
+{"success":true,"error":null,"detail":"Queued downloads list retrieved successfully.","data":[]}

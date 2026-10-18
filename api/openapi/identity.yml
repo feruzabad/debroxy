@@ -1,0 +1,340 @@
+openapi: "3.0.3"
+info:
+  title: debroxy identity API
+  version: "1"
+  description: |
+    Users, login sessions and user administration (spec §4, §10.1).
+    Errors use the body {"slug", "message"} with the status mapping of ddd-rules IN-3.
+servers:
+  - url: /
+security:
+  - bearerAuth: []
+  - sessionCookie: []
+
+paths:
+  /api/v1/auth/login:
+    post:
+      operationId: logIn
+      summary: Log in with username and password
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/LoginRequest" }
+      responses:
+        "200":
+          description: Logged in. The token is also set as the session cookie.
+          headers:
+            Set-Cookie:
+              schema: { type: string }
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/LoginResponse" }
+        "400": { $ref: "#/components/responses/Error" }
+        "401": { $ref: "#/components/responses/Error" }
+        "429": { $ref: "#/components/responses/Error" }
+
+  /api/v1/auth/logout:
+    post:
+      operationId: logOut
+      summary: Revoke the current session
+      responses:
+        "204":
+          description: Logged out. The session cookie is cleared.
+          headers:
+            Set-Cookie:
+              schema: { type: string }
+        "401": { $ref: "#/components/responses/Error" }
+
+  /api/v1/auth/oidc/login:
+    get:
+      operationId: startOIDCLogin
+      summary: Redirect to the OIDC provider (authorization code with PKCE, DEC-04)
+      security: []
+      responses:
+        "302":
+          description: To the provider; the state, nonce and PKCE verifier travel in a short-lived cookie
+          headers:
+            Location:
+              schema: { type: string }
+            Set-Cookie:
+              schema: { type: string }
+        "501": { $ref: "#/components/responses/Error" }
+        "502": { $ref: "#/components/responses/Error" }
+
+  /api/v1/auth/oidc/callback:
+    get:
+      operationId: finishOIDCLogin
+      summary: The provider's redirect back; logs in a pre-linked user (DEC-04)
+      security: []
+      parameters:
+        - { name: code, in: query, schema: { type: string } }
+        - { name: state, in: query, schema: { type: string } }
+        - { name: error, in: query, schema: { type: string } }
+        - { name: debroxy_oidc, in: cookie, schema: { type: string } }
+      responses:
+        "302":
+          description: To the public base URL on success (with the session cookie), or to {publicBaseURL}/login?error=oidc on failure (clearing the flow cookie, C14-02)
+          headers:
+            Location:
+              schema: { type: string }
+            Set-Cookie:
+              schema: { type: string }
+        "501": { $ref: "#/components/responses/Error" }
+
+  /api/v1/me/password:
+    put:
+      operationId: changeOwnPassword
+      summary: Change the own password; other sessions are revoked
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ChangeOwnPasswordRequest" }
+      responses:
+        "204": { description: Password changed }
+        "400": { $ref: "#/components/responses/Error" }
+        "401": { $ref: "#/components/responses/Error" }
+
+  /api/v1/admin/users:
+    get:
+      operationId: listUsers
+      summary: All users (admin)
+      responses:
+        "200":
+          description: The users, ordered by username
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/UserList" }
+        "401": { $ref: "#/components/responses/Error" }
+        "403": { $ref: "#/components/responses/Error" }
+    post:
+      operationId: createUser
+      summary: Create a user with a password login (admin)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CreateUserRequest" }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/User" }
+        "400": { $ref: "#/components/responses/Error" }
+        "401": { $ref: "#/components/responses/Error" }
+        "403": { $ref: "#/components/responses/Error" }
+        "409": { $ref: "#/components/responses/Error" }
+
+  /api/v1/admin/users/{userId}:
+    parameters:
+      - $ref: "#/components/parameters/UserID"
+    get:
+      operationId: getUser
+      summary: One user (admin, or the user themself; job serves GET /api/v1/me)
+      responses:
+        "200":
+          description: The user
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/User" }
+        "401": { $ref: "#/components/responses/Error" }
+        "403": { $ref: "#/components/responses/Error" }
+        "404": { $ref: "#/components/responses/Error" }
+    patch:
+      operationId: updateUser
+      summary: Change role and/or status (admin); the last active admin is protected
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/UpdateUserRequest" }
+      responses:
+        "200":
+          description: The updated user
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/User" }
+        "400": { $ref: "#/components/responses/Error" }
+        "401": { $ref: "#/components/responses/Error" }
+        "403": { $ref: "#/components/responses/Error" }
+        "404": { $ref: "#/components/responses/Error" }
+        "409": { $ref: "#/components/responses/Error" }
+
+  /api/v1/admin/users/{userId}/password:
+    parameters:
+      - $ref: "#/components/parameters/UserID"
+    put:
+      operationId: resetUserPassword
+      summary: Set a new password for a user and revoke their sessions (admin)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ResetUserPasswordRequest" }
+      responses:
+        "204": { description: Password reset }
+        "400": { $ref: "#/components/responses/Error" }
+        "401": { $ref: "#/components/responses/Error" }
+        "403": { $ref: "#/components/responses/Error" }
+        "404": { $ref: "#/components/responses/Error" }
+
+  /api/v1/admin/users/{userId}/oidc-identity:
+    parameters:
+      - $ref: "#/components/parameters/UserID"
+    put:
+      operationId: linkOIDCIdentity
+      summary: Link the user to an OIDC identity (admin, DEC-04)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/OIDCIdentity" }
+      responses:
+        "200":
+          description: The user
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/User" }
+        "400": { $ref: "#/components/responses/Error" }
+        "401": { $ref: "#/components/responses/Error" }
+        "403": { $ref: "#/components/responses/Error" }
+        "404": { $ref: "#/components/responses/Error" }
+        "409": { $ref: "#/components/responses/Error" }
+    delete:
+      operationId: unlinkOIDCIdentity
+      summary: Remove the user's OIDC identity (admin); a user without a password keeps it
+      responses:
+        "200":
+          description: The user
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/User" }
+        "400": { $ref: "#/components/responses/Error" }
+        "401": { $ref: "#/components/responses/Error" }
+        "403": { $ref: "#/components/responses/Error" }
+        "404": { $ref: "#/components/responses/Error" }
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    sessionCookie:
+      type: apiKey
+      in: cookie
+      name: debroxy_session
+
+  parameters:
+    UserID:
+      name: userId
+      in: path
+      required: true
+      schema: { type: string }
+
+  responses:
+    Error:
+      description: Error
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+
+  schemas:
+    Error:
+      type: object
+      required: [slug, message]
+      properties:
+        slug: { type: string, example: invalid-credentials }
+        message: { type: string }
+        retryAfter:
+          type: integer
+          minimum: 1
+          description: Whole seconds to wait before retrying, when the server knows it (ADR 0020).
+
+    LoginRequest:
+      type: object
+      required: [username, password]
+      properties:
+        username: { type: string }
+        password: { type: string, format: password }
+
+    LoginResponse:
+      type: object
+      required: [token, expiresAt]
+      properties:
+        token:
+          type: string
+          description: Session token for the Authorization header (Bearer)
+        expiresAt:
+          type: string
+          format: date-time
+          description: When the session ends unless it is used again (idle timeout), never later than its absolute lifetime
+
+    ChangeOwnPasswordRequest:
+      type: object
+      required: [currentPassword, newPassword]
+      properties:
+        currentPassword: { type: string, format: password }
+        newPassword: { type: string, format: password, minLength: 12 }
+
+    CreateUserRequest:
+      type: object
+      required: [username, role]
+      description: Needs a password, an OIDC identity, or both (spec §4.2)
+      properties:
+        username: { type: string, example: alice }
+        role: { $ref: "#/components/schemas/Role" }
+        password: { type: string, format: password, minLength: 12 }
+        oidcIdentity: { $ref: "#/components/schemas/OIDCIdentity" }
+
+    OIDCIdentity:
+      type: object
+      required: [issuer, subject]
+      properties:
+        issuer: { type: string, example: "https://accounts.example.org" }
+        subject: { type: string }
+
+    UpdateUserRequest:
+      type: object
+      properties:
+        role: { $ref: "#/components/schemas/Role" }
+        status: { $ref: "#/components/schemas/UserStatus" }
+
+    ResetUserPasswordRequest:
+      type: object
+      required: [password]
+      properties:
+        password: { type: string, format: password, minLength: 12 }
+
+    Role:
+      type: string
+      enum: [admin, user]
+
+    UserStatus:
+      type: string
+      enum: [active, disabled]
+
+    User:
+      type: object
+      required: [id, username, role, status, passwordLogin, oidcLinked, createdAt]
+      properties:
+        id: { type: string }
+        username: { type: string }
+        role: { $ref: "#/components/schemas/Role" }
+        status: { $ref: "#/components/schemas/UserStatus" }
+        passwordLogin: { type: boolean }
+        oidcLinked: { type: boolean }
+        oidcIdentity:
+          $ref: "#/components/schemas/OIDCIdentity"
+          description: The linked external identity; present only when linked (C14-05)
+        createdAt: { type: string, format: date-time }
+
+    UserList:
+      type: object
+      required: [users]
+      properties:
+        users:
+          type: array
+          items: { $ref: "#/components/schemas/User" }

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <title>debroxy</title>
+  <rect width="32" height="32" rx="6" fill="oklch(0.55 0.17 255)" />
+  <path d="M16 7l9 9-9 9-9-9z" fill="none" stroke="oklch(0.99 0 0)" stroke-width="2.5" />
+</svg>

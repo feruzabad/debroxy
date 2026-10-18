@@ -1,0 +1,18 @@
+### GET https://api.torbox.app/v1/api/torrents/requestdl?torrent_id=116409037&file_id=0
+### extra-args: 
+### user-agent: debroxy-discovery/0.1  status+time: 422 0.561138s  at: 2026-10-11T13:39:02Z
+
+HTTP/2 422 
+date: Sun, 11 Oct 2026 13:39:02 GMT
+content-type: application/json
+content-length: 91
+server: cloudflare
+x-ratelimit-limit: 300
+x-ratelimit-remaining: 299
+x-ratelimit-reset: 1791726003.8587384
+retry-after: 61
+vary: Origin
+cf-cache-status: DYNAMIC
+speculation-rules: "/cdn-cgi/speculation"
+
+{"detail":[{"type":"missing","loc":["query","token"],"msg":"Field required","input":null}]}

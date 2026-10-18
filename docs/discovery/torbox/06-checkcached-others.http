@@ -1,0 +1,18 @@
+### GET https://api.torbox.app/v1/api/torrents/checkcached?hash=e96966b4995218a510b59f983efe42b8e4632d23,dcd7316b0fc937cd45d8f56eea8021043bfa74a0&format=object
+### extra-args: 
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.344116s  at: 2026-10-11T13:27:55Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 13:27:55 GMT
+content-type: application/json
+server: cloudflare
+vary: Accept-Encoding
+vary: Origin
+x-ratelimit-limit: 300
+x-ratelimit-remaining: 297
+x-ratelimit-reset: 1791725319.487703
+retry-after: 44
+speculation-rules: "/cdn-cgi/speculation"
+cf-cache-status: DYNAMIC
+
+{"success":true,"error":null,"detail":"Torrent cache status retrieved successfully.","data":{"e96966b4995218a510b59f983efe42b8e4632d23":{"name":"debian-edu-13.7.0-amd64-netinst","size":801112064,"hash":"e96966b4995218a510b59f983efe42b8e4632d23"}}}

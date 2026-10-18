@@ -1,0 +1,9 @@
+### POST https://api.real-debrid.com/rest/1.0/torrents/selectFiles/NGHAU27TFFGOS
+### extra-args: --data-urlencode files=all
+### user-agent: debroxy-discovery/0.1  status+time: 204 0.241889s  at: 2026-10-11T14:24:43Z
+
+HTTP/2 204 
+date: Sun, 11 Oct 2026 14:24:43 GMT
+x-served-by: B6
+
+

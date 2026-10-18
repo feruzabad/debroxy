@@ -1,0 +1,17 @@
+### POST https://api.torbox.app/v1/api/webdl/createwebdownload
+### extra-args: -F link=https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-13.7.0-amd64-netinst.iso
+### user-agent: debroxy-discovery/0.1  status+time: 500 2.824769s  at: 2026-10-11T13:40:16Z
+
+HTTP/2 500 
+date: Sun, 11 Oct 2026 13:40:16 GMT
+content-type: application/json
+content-length: 126
+server: cloudflare
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 59
+x-ratelimit-reset: 1791729615.6707633
+retry-after: 3599
+vary: Origin
+cf-cache-status: DYNAMIC
+
+{"success":false,"error":"UNSUPPORTED_SITE","detail":"The site you are trying to download from is not supported.","data":null}

@@ -1,0 +1,13 @@
+### POST https://api.real-debrid.com/rest/1.0/unrestrict/link
+### extra-args: --data-urlencode link=https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-13.7.0-amd64-netinst.iso
+### user-agent: debroxy-discovery/0.1  status+time: 400 0.126058s  at: 2026-10-11T13:48:44Z
+
+HTTP/2 400 
+date: Sun, 11 Oct 2026 13:48:45 GMT
+content-type: application/json
+x-served-by: B1
+
+{
+	"error": "hoster_unsupported",
+	"error_code": 16
+}

@@ -1,0 +1,140 @@
+### GET https://api.real-debrid.com/rest/1.0/torrents/info/ACDIALU45Q7PS
+### extra-args: 
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.134880s  at: 2026-10-11T14:15:02Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 14:15:02 GMT
+content-type: application/json
+vary: Accept-Encoding
+vary: Accept-Encoding
+x-served-by: B5
+x-cached: MISS
+
+{
+	"id": "ACDIALU45Q7PS",
+	"filename": "AvengeDe1942",
+	"original_filename": "AvengeDe1942",
+	"hash": "986fd1910cfe8d20052fe3ee49f5ded6acf0015a",
+	"bytes": 33805963,
+	"original_bytes": 159177169,
+	"host": "real-debrid.com",
+	"split": 2000,
+	"progress": 21.9,
+	"status": "downloading",
+	"added": "2026-10-11T16:14:11.000Z",
+	"files": [
+		{
+			"id": 1,
+			"path": "\/AvengeDe1942.asr.js",
+			"bytes": 18077,
+			"selected": 0
+		},
+		{
+			"id": 2,
+			"path": "\/AvengeDe1942.asr.srt",
+			"bytes": 1895,
+			"selected": 0
+		},
+		{
+			"id": 3,
+			"path": "\/AvengeDe1942.asr.vtt",
+			"bytes": 1953,
+			"selected": 0
+		},
+		{
+			"id": 4,
+			"path": "\/AvengeDe1942.avi",
+			"bytes": 7392650,
+			"selected": 1
+		},
+		{
+			"id": 5,
+			"path": "\/AvengeDe1942.gif",
+			"bytes": 280699,
+			"selected": 0
+		},
+		{
+			"id": 6,
+			"path": "\/AvengeDe1942.mp3",
+			"bytes": 849920,
+			"selected": 0
+		},
+		{
+			"id": 7,
+			"path": "\/AvengeDe1942.mp4",
+			"bytes": 11125832,
+			"selected": 1
+		},
+		{
+			"id": 8,
+			"path": "\/AvengeDe1942.mpeg",
+			"bytes": 49170279,
+			"selected": 0
+		},
+		{
+			"id": 9,
+			"path": "\/AvengeDe1942.ogv",
+			"bytes": 7707885,
+			"selected": 1
+		},
+		{
+			"id": 10,
+			"path": "\/AvengeDe1942.png",
+			"bytes": 11810,
+			"selected": 0
+		},
+		{
+			"id": 11,
+			"path": "\/AvengeDe1942_256kb.rm",
+			"bytes": 18930236,
+			"selected": 0
+		},
+		{
+			"id": 12,
+			"path": "\/AvengeDe1942_512kb.mp4",
+			"bytes": 7578104,
+			"selected": 1
+		},
+		{
+			"id": 13,
+			"path": "\/AvengeDe1942_64kb.rm",
+			"bytes": 7869031,
+			"selected": 0
+		},
+		{
+			"id": 14,
+			"path": "\/AvengeDe1942_edit.mp4",
+			"bytes": 48199441,
+			"selected": 0
+		},
+		{
+			"id": 15,
+			"path": "\/AvengeDe1942_intermediate_asr.json",
+			"bytes": 2482,
+			"selected": 0
+		},
+		{
+			"id": 16,
+			"path": "\/AvengeDe1942_meta.xml",
+			"bytes": 1492,
+			"selected": 1
+		},
+		{
+			"id": 17,
+			"path": "\/AvengeDe1942_whisper_asr.json",
+			"bytes": 29140,
+			"selected": 0
+		},
+		{
+			"id": 18,
+			"path": "\/__ia_thumb.jpg",
+			"bytes": 6243,
+			"selected": 0
+		}
+	],
+	"links": [
+		
+	],
+	"speed": 778103,
+	"seeders": 0
+}

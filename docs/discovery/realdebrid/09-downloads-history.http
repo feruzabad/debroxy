@@ -1,0 +1,28 @@
+### GET https://api.real-debrid.com/rest/1.0/downloads
+### extra-args: 
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.156704s  at: 2026-10-11T13:49:18Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 13:49:18 GMT
+content-type: application/json
+vary: Accept-Encoding
+vary: Accept-Encoding
+x-served-by: B4
+x-total-count: 1
+x-cached: MISS
+
+[
+	{
+		"id": "RIWIGM27SJ7SK",
+		"filename": "debian-13.7.0-amd64-netinst.iso",
+		"mimeType": null,
+		"filesize": 792723456,
+		"link": "https:\/\/real-debrid.com\/d\/<redacted>",
+		"host": "real-debrid.com",
+		"host_icon": "https:\/\/fcdn.real-debrid.com\/0840\/images\/hosters\/realdebrid.png",
+		"chunks": 32,
+		"download": "https:\/\/20-4.download.real-debrid.com\/d\/<redacted>\/debian-13.7.0-amd64-netinst.iso",
+		"streamable": 0,
+		"generated": "2026-10-11T15:38:31.000Z"
+	}
+]

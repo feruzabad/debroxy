@@ -1,0 +1,17 @@
+### POST https://api.torbox.app/v1/api/torrents/controltorrent
+### extra-args: -H Content-Type: application/json -d {"torrent_id":116446015,"operation":"delete"}
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.576602s  at: 2026-10-11T14:41:08Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 14:41:08 GMT
+content-type: application/json
+server: cloudflare
+vary: Accept-Encoding
+vary: Origin
+x-ratelimit-limit: 300
+x-ratelimit-remaining: 299
+x-ratelimit-reset: 1791729728.90999
+retry-after: 61
+cf-cache-status: DYNAMIC
+
+{"success":true,"error":null,"detail":"Torrent deleted successfully.","data":null}

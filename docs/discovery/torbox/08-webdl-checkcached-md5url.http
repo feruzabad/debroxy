@@ -1,0 +1,18 @@
+### GET https://api.torbox.app/v1/api/webdl/checkcached?hash=11174b255e3c8dfa00e77afbdd7c3d4e&format=object
+### extra-args: 
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.265981s  at: 2026-10-11T13:41:01Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 13:41:01 GMT
+content-type: application/json
+server: cloudflare
+vary: Accept-Encoding
+vary: Origin
+x-ratelimit-limit: 300
+x-ratelimit-remaining: 299
+x-ratelimit-reset: 1791726122.0951464
+retry-after: 61
+speculation-rules: "/cdn-cgi/speculation"
+cf-cache-status: DYNAMIC
+
+{"success":true,"error":null,"detail":"Web download cache status retrieved successfully.","data":{"11174b255e3c8dfa00e77afbdd7c3d4e":{"name":"AvengeDe1942_512kb.mp4","size":7578104,"hash":"11174b255e3c8dfa00e77afbdd7c3d4e"}}}

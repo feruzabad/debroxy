@@ -1,0 +1,38 @@
+### HEAD https://wormhole-001.weur.tb-cdn.st/zip/b0006e13-de42-40f2-98b8-7450282a133b?<redacted-query><redacted-api-key>
+### extra-args: -I
+### user-agent: debroxy-discovery/0.1  status+time: 200 2.850102s  at: 2026-10-11T14:36:38Z
+
+HTTP/1.1 200 OK
+Date: Sun, 11 Oct 2026 14:36:38 GMT
+Content-Type: application/zip
+Content-Length: 129303910
+Connection: keep-alive
+server: cloudflare
+content-disposition: attachment; filename=Sintel.zip
+accept-ranges: bytes
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 59
+x-ratelimit-reset: 1791729456.6915557
+retry-after: 58
+vary: Origin
+cf-cache-status: DYNAMIC
+Speculation-Rules: "/cdn-cgi/speculation"
+
+HTTP/1.1 200 OK
+Date: Sun, 11 Oct 2026 14:36:38 GMT
+Content-Type: application/zip
+Content-Length: 129303910
+Connection: keep-alive
+server: cloudflare
+content-disposition: attachment; filename=Sintel.zip
+accept-ranges: bytes
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 59
+x-ratelimit-reset: 1791729456.6915557
+retry-after: 58
+vary: Origin
+cf-cache-status: DYNAMIC
+Speculation-Rules: "/cdn-cgi/speculation"
+CF-RAY: <redacted>
+
+

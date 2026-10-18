@@ -1,0 +1,18 @@
+### GET https://api.torbox.app/v1/api/webdl/mylist?id=1975283&bypass_cache=true
+### extra-args: 
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.284628s  at: 2026-10-11T13:44:55Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 13:44:55 GMT
+content-type: application/json
+server: cloudflare
+vary: Accept-Encoding
+vary: Origin
+x-ratelimit-limit: 300
+x-ratelimit-remaining: 286
+x-ratelimit-reset: 1791726298.4429703
+retry-after: 3
+speculation-rules: "/cdn-cgi/speculation"
+cf-cache-status: DYNAMIC
+
+{"success":true,"error":null,"detail":"web downloads list retrieved successfully.","data":{"id":1975283,"created_at":"2026-10-11T13:41:29Z","updated_at":"2026-10-11T13:44:51Z","auth_id":"<redacted>","name":"Avenge December 7 (Pearl Harbor)","hash":"72e1ebf4583c7aa997f05156c61a2c7d","download_state":"completed","download_speed":0,"original_url":"https://archive.org/details/AvengeDe1942","eta":0,"progress":1,"size":159356851,"download_id":null,"files":[{"id":0,"md5":null,"hash":"72e1ebf4583c7aa997f05156c61a2c7d","name":"Avenge December 7 (Pearl Harbor)/Avenge December 7 (Pearl Harbor).zip","size":159356851,"zipped":false,"s3_path":"72e1ebf4583c7aa997f05156c61a2c7d/Avenge December 7 (Pearl Harbor)/Avenge December 7 (Pearl Harbor).zip","infected":false,"mimetype":"application/zip","short_name":"Avenge December 7 (Pearl Harbor).zip","absolute_path":"/app/downloads/72e1ebf4583c7aa997f05156c61a2c7d/Avenge December 7 (Pearl Harbor)/Avenge December 7 (Pearl Harbor).zip","opensubtitles_hash":null}],"active":false,"cached":true,"download_present":true,"download_finished":true,"expires_at":"2026-11-10T13:44:51Z","error":null,"cached_at":"2026-10-11T13:44:51Z","server":65,"alternative_hashes":["06bf2f202e77da8718291485348194a1","663640bcd930631a4cef5748a1a5dfa0","f0bcfeee443265c6c234ac3b589b70ba"],"tags":[],"airlocked":false}}

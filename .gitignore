@@ -1,0 +1,16 @@
+# IDE
+.idea/
+
+# Build output
+/bin/
+/dist/
+
+# Local databases
+*.db
+*.db-shm
+*.db-wal
+*.db.lock
+
+# Local configuration and secrets
+.env
+/secrets/

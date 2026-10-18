@@ -1,0 +1,21 @@
+### HEAD https://20-4.download.real-debrid.com/d/<redacted>/debian-13.7.0-amd64-netinst.iso
+### extra-args: -I
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.587625s  at: 2026-10-11T13:38:32Z
+
+HTTP/1.1 200 OK
+Server: Lity 2.0
+Accept-Ranges: bytes
+Content-Length: 792723456
+Content-Disposition: attachment
+Content-Type: application/force-download
+Connection: close
+
+HTTP/1.1 200 OK
+Server: Lity 2.0
+Accept-Ranges: bytes
+Content-Length: 792723456
+Content-Disposition: attachment
+Content-Type: application/force-download
+Connection: close
+
+

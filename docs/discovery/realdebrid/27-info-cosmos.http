@@ -1,0 +1,67 @@
+### GET https://api.real-debrid.com/rest/1.0/torrents/info/4IDWK4PCUJZ4E
+### extra-args: 
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.132564s  at: 2026-10-11T14:39:22Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 14:39:22 GMT
+content-type: application/json
+vary: Accept-Encoding
+vary: Accept-Encoding
+x-served-by: B3
+x-cached: MISS
+
+{
+	"id": "4IDWK4PCUJZ4E",
+	"filename": "Cosmos Laundromat.en.srt",
+	"original_filename": "Cosmos Laundromat",
+	"hash": "c9e15763f722f23e98a29decdfae341b98d53056",
+	"bytes": 3945,
+	"original_bytes": 220864086,
+	"host": "real-debrid.com",
+	"split": 2000,
+	"progress": 100,
+	"status": "downloaded",
+	"added": "2026-10-11T16:38:52.000Z",
+	"files": [
+		{
+			"id": 1,
+			"path": "\/Cosmos Laundromat.en.srt",
+			"bytes": 3945,
+			"selected": 1
+		},
+		{
+			"id": 2,
+			"path": "\/Cosmos Laundromat.es.srt",
+			"bytes": 3911,
+			"selected": 0
+		},
+		{
+			"id": 3,
+			"path": "\/Cosmos Laundromat.fr.srt",
+			"bytes": 4120,
+			"selected": 0
+		},
+		{
+			"id": 4,
+			"path": "\/Cosmos Laundromat.it.srt",
+			"bytes": 3945,
+			"selected": 0
+		},
+		{
+			"id": 5,
+			"path": "\/Cosmos Laundromat.mp4",
+			"bytes": 220087570,
+			"selected": 0
+		},
+		{
+			"id": 6,
+			"path": "\/poster.jpg",
+			"bytes": 760595,
+			"selected": 0
+		}
+	],
+	"links": [
+		"https:\/\/real-debrid.com\/d\/<redacted>"
+	],
+	"ended": "2026-10-11T16:39:18.000Z"
+}

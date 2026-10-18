@@ -1,0 +1,18 @@
+### GET https://api.torbox.app/v1/api/usenet/checkcached?hash=523b231bb7d8d66e11cc2727dc89c58e,0fa4422db064dc73c42fce74cf43adc0,396199a9e37ddaa217edead47a67f69e&format=object
+### extra-args: 
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.390819s  at: 2026-10-11T13:40:02Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 13:40:02 GMT
+content-type: application/json
+server: cloudflare
+vary: Accept-Encoding
+vary: Origin
+x-ratelimit-limit: 300
+x-ratelimit-remaining: 299
+x-ratelimit-reset: 1791726063.0206885
+retry-after: 61
+speculation-rules: "/cdn-cgi/speculation"
+cf-cache-status: DYNAMIC
+
+{"success":true,"error":null,"detail":"Usenet cache status retrieved successfully.","data":{}}

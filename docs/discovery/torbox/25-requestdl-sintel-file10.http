@@ -1,0 +1,18 @@
+### GET https://api.torbox.app/v1/api/torrents/requestdl?token=<redacted-api-key>&torrent_id=116446015&file_id=10
+### extra-args: 
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.298740s  at: 2026-10-11T14:36:33Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 14:36:33 GMT
+content-type: application/json
+server: cloudflare
+vary: Accept-Encoding
+vary: Origin
+x-ratelimit-limit: 300
+x-ratelimit-remaining: 299
+x-ratelimit-reset: 1791729454.8859892
+retry-after: 61
+speculation-rules: "/cdn-cgi/speculation"
+cf-cache-status: DYNAMIC
+
+{"success":true,"error":null,"detail":"Torrent download requested successfully.","data":"https://nexus-321.ceur.tb-cdn.st/dld/9b811d91-2eb9-4ac9-89e4-4b4f8bf1e5ff?<redacted-query><redacted-api-key>"}

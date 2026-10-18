@@ -1,0 +1,15 @@
+### GET https://api.real-debrid.com/rest/1.0/torrents/instantAvailability/7acf8fb590b2060dd9c3146ef770169d593433b0
+### extra-args: 
+### user-agent: debroxy-discovery/0.1  status+time: 403 0.112324s  at: 2026-10-11T13:27:40Z
+
+HTTP/2 403 
+date: Sun, 11 Oct 2026 13:27:40 GMT
+content-type: application/json
+vary: Accept-Encoding
+vary: Accept-Encoding
+x-served-by: B1
+
+{
+	"error": "disabled_endpoint",
+	"error_code": 37
+}

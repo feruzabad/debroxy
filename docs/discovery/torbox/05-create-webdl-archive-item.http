@@ -1,0 +1,17 @@
+### POST https://api.torbox.app/v1/api/webdl/createwebdownload
+### extra-args: -F link=https://archive.org/details/AvengeDe1942
+### user-agent: debroxy-discovery/0.1  status+time: 200 19.131312s  at: 2026-10-11T13:41:30Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 13:41:30 GMT
+content-type: application/json
+server: cloudflare
+vary: Accept-Encoding
+vary: Origin
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 56
+x-ratelimit-reset: 1791729615.5953078
+retry-after: 3525
+cf-cache-status: DYNAMIC
+
+{"success":true,"detail":"Archive.org download started. Please wait for the download to complete. You will be notified when the download is complete.","error":null,"data":{"hash":"72e1ebf4583c7aa997f05156c61a2c7d","webdownload_id":1975283,"auth_id":"<redacted>","jdownloader_id":null,"link_list":["https://archive.org/details/AvengeDe1942"]}}

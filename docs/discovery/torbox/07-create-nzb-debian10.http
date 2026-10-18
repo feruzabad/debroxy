@@ -1,0 +1,17 @@
+### POST https://api.torbox.app/v1/api/usenet/createusenetdownload
+### extra-args: -F file=@debian-10-netinstall-iso.nzb
+### user-agent: debroxy-discovery/0.1  status+time: 500 0.397216s  at: 2026-10-11T13:40:02Z
+
+HTTP/2 500 
+date: Sun, 11 Oct 2026 13:40:02 GMT
+content-type: application/json
+content-length: 145
+server: cloudflare
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 59
+x-ratelimit-reset: 1791729603.5457666
+retry-after: 3601
+vary: Origin
+cf-cache-status: DYNAMIC
+
+{"success":false,"error":"PLAN_RESTRICTED_FEATURE","detail":"User is not allowed to use usenet downloads. Please upgrade your plan.","data":null}

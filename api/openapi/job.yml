@@ -1,0 +1,743 @@
+openapi: "3.0.3"
+info:
+  title: debroxy job API
+  version: "1"
+  description: |
+    Jobs, submissions, provider state and the job administration (spec §5, §10).
+    Errors use the body {"slug", "message"} with the status mapping of ddd-rules IN-3.
+    Job lists carry "stale": true when they come from stored state during a refresh
+    back-off (C5-07).
+servers:
+  - url: /
+security:
+  - bearerAuth: []
+  - sessionCookie: []
+
+paths:
+  /api/v1/me:
+    get:
+      operationId: getMe
+      summary: The logged-in user and their slot quota (C9-02)
+      responses:
+        "200":
+          description: The user and the quota
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Me" }
+        "401": { $ref: "#/components/responses/Error" }
+
+  /api/v1/providers:
+    get:
+      operationId: listProviders
+      summary: The configured providers with their capabilities (C9-03)
+      responses:
+        "200":
+          description: The providers
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ProviderList" }
+        "401": { $ref: "#/components/responses/Error" }
+
+  /api/v1/providers/{providerId}/hosters:
+    parameters:
+      - $ref: "#/components/parameters/ProviderID"
+    get:
+      operationId: listHosters
+      summary: The provider's supported web hosters (C9-03)
+      responses:
+        "200":
+          description: The hoster catalogue
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/HosterList" }
+        "401": { $ref: "#/components/responses/Error" }
+        "404": { $ref: "#/components/responses/Error" }
+        "409": { $ref: "#/components/responses/Error" }
+        "501": { $ref: "#/components/responses/Error" }
+        "503": { $ref: "#/components/responses/Error" }
+
+  /api/v1/providers/{providerId}/cached-availability:
+    parameters:
+      - $ref: "#/components/parameters/ProviderID"
+    post:
+      operationId: checkCachedAvailability
+      summary: Which fingerprints the provider has cached; only torrent fingerprints can be cached
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CachedAvailabilityRequest" }
+      responses:
+        "200":
+          description: Cached flag per fingerprint
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/CachedAvailability" }
+        "400": { $ref: "#/components/responses/Error" }
+        "401": { $ref: "#/components/responses/Error" }
+        "404": { $ref: "#/components/responses/Error" }
+        "501": { $ref: "#/components/responses/Error" }
+        "503": { $ref: "#/components/responses/Error" }
+
+  /api/v1/providers/{providerId}/refresh:
+    parameters:
+      - $ref: "#/components/parameters/ProviderID"
+    post:
+      operationId: refreshProvider
+      summary: Refresh the provider state now (forced; limited per user, ADR 0018)
+      responses:
+        "200":
+          description: The refresh ran, or the state is stale because of a back-off
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/RefreshResult" }
+        "401": { $ref: "#/components/responses/Error" }
+        "404": { $ref: "#/components/responses/Error" }
+        "429": { $ref: "#/components/responses/Error" }
+
+  /api/v1/events:
+    get:
+      operationId: watchJobs
+      summary: Event Stream of job snapshots (spec §5.11, ADR 0021)
+      description: |
+        Server-sent events. The stream opens with `retry: 3000` and an `event: ready`
+        (`{"scope": "own"|"all"}`), then sends `job.upserted` (a Job; `ownerUsername`
+        only for scope=all), `job.released` (`{jobId, historyEntry}`), `quota.updated`
+        (QuotaUsage, own scope only) and `provider.stale` (`{providerId, stale}`).
+        Every event has an increasing `id:`; there is no replay and `Last-Event-ID` is
+        ignored. A `: ping` comment goes out every 25 s. The session is re-checked every
+        60 s without extending its idle timeout; the stream ends when the check fails.
+        Not generated: the job HTTP adapter serves it by hand.
+      parameters:
+        - name: scope
+          in: query
+          required: false
+          schema: { type: string, enum: [own, all], default: own }
+      responses:
+        "200":
+          description: The stream
+          headers:
+            Cache-Control:
+              schema: { type: string, enum: [no-store] }
+          content:
+            text/event-stream:
+              schema: { type: string }
+        "400": { $ref: "#/components/responses/Error" }
+        "401": { $ref: "#/components/responses/Error" }
+        "403": { $ref: "#/components/responses/Error" }
+        "503":
+          description: too-many-streams, with retryAfter 5 (ADR 0020)
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+  /api/v1/jobs:
+    get:
+      operationId: listJobs
+      summary: The user's jobs, newest first (after a refresh-on-read)
+      responses:
+        "200":
+          description: The jobs
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/JobList" }
+        "401": { $ref: "#/components/responses/Error" }
+    post:
+      operationId: submitJob
+      summary: Submit a source; joins an existing item for the same content (spec §5.5)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/SubmitJobRequest" }
+      responses:
+        "200":
+          description: A retry of a submission whose job was released since; the history entry
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/HistoryEntry" }
+        "201":
+          description: The job
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Job" }
+        "202":
+          description: The submission is still pending at the provider
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/SubmissionPending" }
+        "400": { $ref: "#/components/responses/Error" }
+        "401": { $ref: "#/components/responses/Error" }
+        "404": { $ref: "#/components/responses/Error" }
+        "409":
+          description: job-already-exists; the Location header names the caller's existing job (C14-04)
+          headers:
+            Location:
+              schema: { type: string }
+              description: /api/v1/jobs/{jobId} of the caller's existing job for the same content
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+        "429": { $ref: "#/components/responses/Error" }
+        "501": { $ref: "#/components/responses/Error" }
+        "503": { $ref: "#/components/responses/Error" }
+
+  /api/v1/jobs/history:
+    get:
+      operationId: listJobHistory
+      summary: The user's released jobs
+      responses:
+        "200":
+          description: The history
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/HistoryList" }
+        "401": { $ref: "#/components/responses/Error" }
+
+  /api/v1/jobs/{jobId}:
+    parameters:
+      - $ref: "#/components/parameters/JobID"
+    get:
+      operationId: getJob
+      summary: One job (after a refresh-on-read)
+      responses:
+        "200":
+          description: The job
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Job" }
+        "401": { $ref: "#/components/responses/Error" }
+        "404": { $ref: "#/components/responses/Error" }
+    patch:
+      operationId: renameJob
+      summary: Change the job's display name (owner)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/RenameJobRequest" }
+      responses:
+        "200":
+          description: The job
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Job" }
+        "400": { $ref: "#/components/responses/Error" }
+        "401": { $ref: "#/components/responses/Error" }
+        "404": { $ref: "#/components/responses/Error" }
+    delete:
+      operationId: releaseJob
+      summary: Release the job; the last release deletes the provider item
+      responses:
+        "204": { description: Released }
+        "401": { $ref: "#/components/responses/Error" }
+        "404": { $ref: "#/components/responses/Error" }
+
+  /api/v1/admin/jobs:
+    get:
+      operationId: listAllJobs
+      summary: Every job (admin, after a refresh-on-read)
+      responses:
+        "200":
+          description: The jobs
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/JobList" }
+        "401": { $ref: "#/components/responses/Error" }
+        "403": { $ref: "#/components/responses/Error" }
+
+  /api/v1/admin/jobs/{jobId}:
+    parameters:
+      - $ref: "#/components/parameters/JobID"
+    delete:
+      operationId: releaseAnyJob
+      summary: Release any user's job (admin)
+      responses:
+        "204": { description: Released }
+        "401": { $ref: "#/components/responses/Error" }
+        "403": { $ref: "#/components/responses/Error" }
+        "404": { $ref: "#/components/responses/Error" }
+
+  /api/v1/admin/users/{userId}/slot-quota:
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        schema: { type: string }
+    get:
+      operationId: getUserSlotQuota
+      summary: A user's slot quota (admin, C14-01)
+      responses:
+        "200":
+          description: The effective quota
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/SlotQuota" }
+        "401": { $ref: "#/components/responses/Error" }
+        "403": { $ref: "#/components/responses/Error" }
+    put:
+      operationId: setSlotQuota
+      summary: Set a user's maximum of charged active jobs (admin)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/SlotQuotaRequest" }
+      responses:
+        "204": { description: Set }
+        "400": { $ref: "#/components/responses/Error" }
+        "401": { $ref: "#/components/responses/Error" }
+        "403": { $ref: "#/components/responses/Error" }
+
+  /api/v1/admin/unmanaged-items:
+    get:
+      operationId: listUnmanagedItems
+      summary: Provider items debroxy does not track (admin, DEC-10)
+      responses:
+        "200":
+          description: The unmanaged items
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/UnmanagedItemList" }
+        "401": { $ref: "#/components/responses/Error" }
+        "403": { $ref: "#/components/responses/Error" }
+
+  /api/v1/admin/outbox:
+    get:
+      operationId: listParkedOutboxMessages
+      summary: Outbox messages that stopped retrying (admin)
+      responses:
+        "200":
+          description: The parked messages
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/OutboxMessageList" }
+        "401": { $ref: "#/components/responses/Error" }
+        "403": { $ref: "#/components/responses/Error" }
+
+  /api/v1/admin/providers/{providerId}/probe-capabilities:
+    parameters:
+      - $ref: "#/components/parameters/ProviderID"
+    post:
+      operationId: probeProviderCapabilities
+      summary: Let the next use test every unavailable capability again (admin, ADR 0018)
+      responses:
+        "204": { description: Done }
+        "401": { $ref: "#/components/responses/Error" }
+        "403": { $ref: "#/components/responses/Error" }
+        "404": { $ref: "#/components/responses/Error" }
+
+  /webhooks/{providerId}/{secret}:
+    post:
+      operationId: handleProviderWebhook
+      summary: Provider webhook; only a refresh hint (spec §5.6). The body is read raw.
+      security: []
+      parameters:
+        - name: providerId
+          in: path
+          required: true
+          schema: { type: string }
+        - name: secret
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: false
+        content:
+          application/octet-stream:
+            schema: { type: string, format: binary }
+      responses:
+        "204": { description: Accepted }
+        "400": { $ref: "#/components/responses/Error" }
+        "404": { $ref: "#/components/responses/Error" }
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    sessionCookie:
+      type: apiKey
+      in: cookie
+      name: debroxy_session
+
+  parameters:
+    ProviderID:
+      name: providerId
+      in: path
+      required: true
+      schema: { type: string }
+    JobID:
+      name: jobId
+      in: path
+      required: true
+      schema: { type: string }
+
+  responses:
+    Error:
+      description: Error
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+
+  schemas:
+    Error:
+      type: object
+      required: [slug, message]
+      properties:
+        slug: { type: string, example: slot-quota-exceeded }
+        message: { type: string }
+        retryAfter:
+          type: integer
+          minimum: 1
+          description: Whole seconds to wait before retrying, when the server knows it (ADR 0020).
+
+    Me:
+      type: object
+      required: [user, quota, session, submitRate]
+      properties:
+        user: { $ref: "#/components/schemas/User" }
+        quota: { $ref: "#/components/schemas/QuotaUsage" }
+        session: { $ref: "#/components/schemas/SessionExpiry" }
+        submitRate: { $ref: "#/components/schemas/SubmitRate" }
+
+    SessionExpiry:
+      type: object
+      required: [idleExpiresAt, absoluteExpiresAt]
+      properties:
+        idleExpiresAt:
+          type: string
+          format: date-time
+          description: When the session ends unless used again, already including this request's touch
+        absoluteExpiresAt:
+          type: string
+          format: date-time
+          description: When the session ends at the latest
+
+    SubmitRate:
+      type: object
+      required: [uncached, cached]
+      properties:
+        uncached: { $ref: "#/components/schemas/SubmitRateClass" }
+        cached: { $ref: "#/components/schemas/SubmitRateClass" }
+
+    SubmitRateClass:
+      type: object
+      required: [used, perHour, resetsAt]
+      properties:
+        used:
+          type: integer
+          description: Accepted submits of this class in the rolling hour
+        perHour:
+          type: integer
+          description: The class's limit
+        resetsAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: When the oldest counted submit leaves the window; null when used is 0
+
+    User:
+      type: object
+      required: [id, username, role, status, passwordLogin, oidcLinked, createdAt]
+      properties:
+        id: { type: string }
+        username: { type: string }
+        role: { type: string, enum: [admin, user] }
+        status: { type: string, enum: [active, disabled] }
+        passwordLogin: { type: boolean }
+        oidcLinked: { type: boolean }
+        createdAt: { type: string, format: date-time }
+
+    QuotaUsage:
+      type: object
+      required: [slotsUsed, maxActiveJobs]
+      properties:
+        slotsUsed:
+          type: integer
+          description: Active items charged to the user, submitting ones included
+        maxActiveJobs: { type: integer }
+
+    ProviderList:
+      type: object
+      required: [providers]
+      properties:
+        providers:
+          type: array
+          items: { $ref: "#/components/schemas/Provider" }
+
+    Provider:
+      type: object
+      required: [id, kind, displayName, enabled, capabilities]
+      properties:
+        id: { type: string, example: torbox }
+        kind: { type: string, example: torbox }
+        displayName: { type: string }
+        enabled: { type: boolean }
+        capabilities:
+          type: array
+          items: { $ref: "#/components/schemas/Capability" }
+
+    Capability:
+      type: object
+      required: [name, supported, enabled]
+      properties:
+        name: { type: string, example: SubmitMagnet }
+        supported: { type: boolean, description: The provider kind has it }
+        enabled: { type: boolean, description: debroxy v1 enables it }
+        state:
+          type: string
+          enum: [available, unavailable, unverified]
+          description: What debroxy learned for this account; absent when not supported
+
+    HosterList:
+      type: object
+      required: [hosters]
+      properties:
+        hosters:
+          type: array
+          items: { $ref: "#/components/schemas/Hoster" }
+
+    Hoster:
+      type: object
+      required: [name, domains, up]
+      properties:
+        name: { type: string }
+        domains:
+          type: array
+          items: { type: string }
+        up: { type: boolean }
+        dailyLimit:
+          type: integer
+          format: int64
+          description: Links per day; absent when the provider reports another unit or none (C14-06)
+        dailyUsed:
+          type: integer
+          format: int64
+          description: Links used today; absent when the provider reports another unit or none (C14-06)
+
+    CachedAvailabilityRequest:
+      type: object
+      required: [fingerprints]
+      properties:
+        fingerprints:
+          type: array
+          maxItems: 100
+          items: { type: string, example: "btih:7acf8fb590b2060dd9c3146ef770169d593433b0" }
+
+    CachedAvailability:
+      type: object
+      required: [cached]
+      properties:
+        cached:
+          type: object
+          additionalProperties: { type: boolean }
+
+    RefreshResult:
+      type: object
+      required: [stale]
+      properties:
+        stale:
+          type: boolean
+          description: The provider was not listed (back-off or failure); stored state is shown
+
+    SubmitJobRequest:
+      type: object
+      required: [providerId, source]
+      properties:
+        id:
+          type: string
+          description: Job ID chosen by the client (UUIDv7) so a lost response can be retried; generated when absent
+        providerId: { type: string }
+        displayName: { type: string }
+        source: { $ref: "#/components/schemas/Source" }
+
+    Source:
+      type: object
+      required: [type]
+      properties:
+        type:
+          type: string
+          enum: [magnet, torrent-file, nzb-file, nzb-url, web-url]
+        magnet: { type: string }
+        url: { type: string }
+        password:
+          type: string
+          format: password
+          description: Web URLs only; the first submission's password is used (spec §5.1)
+        fileName: { type: string }
+        file:
+          type: string
+          format: byte
+          description: The .torrent or .nzb file, base64
+
+    SubmissionPending:
+      type: object
+      required: [slug, job]
+      properties:
+        slug: { type: string, enum: [submission-pending] }
+        job: { $ref: "#/components/schemas/Job" }
+
+    RenameJobRequest:
+      type: object
+      required: [displayName]
+      properties:
+        displayName: { type: string }
+
+    JobList:
+      type: object
+      required: [jobs, stale]
+      properties:
+        jobs:
+          type: array
+          items: { $ref: "#/components/schemas/Job" }
+        stale: { type: boolean }
+
+    Job:
+      type: object
+      required: [id, displayName, provider, kind, state, telemetry, sizeBytes, shared, slotCharged, delivery, files, createdAt]
+      properties:
+        id: { type: string }
+        displayName: { type: string }
+        provider: { type: string }
+        kind: { type: string, enum: [torrent, nzb, web] }
+        state:
+          type: string
+          enum: [submitting, queued, resolving_metadata, awaiting_file_selection, downloading, processing, ready, failed, gone, deleting, deleted]
+        telemetry: { $ref: "#/components/schemas/Telemetry" }
+        sizeBytes: { type: integer, format: int64 }
+        expiresAt: { type: string, format: date-time, nullable: true }
+        shared:
+          type: boolean
+          description: Others hold claims on the same content; never who (NFR-04)
+        slotCharged:
+          type: boolean
+          description: The job counts toward the user's slot quota
+        delivery: { $ref: "#/components/schemas/Delivery" }
+        files:
+          type: array
+          items: { $ref: "#/components/schemas/File" }
+        createdAt: { type: string, format: date-time }
+        failureReason: { type: string, nullable: true }
+        ownerUsername:
+          type: string
+          description: Shown to admins only
+        stale:
+          type: boolean
+          description: Single-job reads only; true when the provider could not be listed (C5-07)
+
+    Telemetry:
+      type: object
+      required: [progress, bytesPerSecond, stalled]
+      properties:
+        progress: { type: number, format: double }
+        bytesPerSecond: { type: integer, format: int64 }
+        etaSeconds: { type: integer, format: int64, nullable: true }
+        peers: { type: integer, nullable: true }
+        stalled: { type: boolean }
+
+    Delivery:
+      type: object
+      required: [perFile]
+      properties:
+        perFile: { type: boolean }
+        bundle: { $ref: "#/components/schemas/Bundle" }
+
+    Bundle:
+      type: object
+      required: [format, rangeSupported]
+      properties:
+        format: { type: string, enum: [zip, rar] }
+        rangeSupported: { type: boolean }
+
+    File:
+      type: object
+      required: [id, path, sizeBytes]
+      properties:
+        id: { type: string }
+        path: { type: string }
+        sizeBytes: { type: integer, format: int64 }
+
+    HistoryList:
+      type: object
+      required: [entries]
+      properties:
+        entries:
+          type: array
+          items: { $ref: "#/components/schemas/HistoryEntry" }
+
+    HistoryEntry:
+      type: object
+      required: [jobId, displayName, provider, kind, name, finalState, claimedAt, releasedAt]
+      properties:
+        jobId: { type: string }
+        displayName: { type: string }
+        provider: { type: string }
+        kind: { type: string }
+        name: { type: string }
+        finalState:
+          type: string
+          description: The item's state when the job was released (C5-11)
+        failureReason: { type: string, nullable: true }
+        claimedAt: { type: string, format: date-time }
+        releasedAt: { type: string, format: date-time }
+
+    SlotQuotaRequest:
+      type: object
+      required: [maxActiveJobs]
+      properties:
+        maxActiveJobs: { type: integer, minimum: 0 }
+
+    SlotQuota:
+      type: object
+      required: [maxActiveJobs, isDefault, slotsUsed]
+      properties:
+        maxActiveJobs:
+          type: integer
+          description: "The effective limit: the stored quota, or the instance default when isDefault is true"
+        isDefault:
+          type: boolean
+          description: True when the user has no stored quota and the instance default applies
+        slotsUsed:
+          type: integer
+          description: Active items charged to the user, submitting ones included
+
+    UnmanagedItemList:
+      type: object
+      required: [items]
+      properties:
+        items:
+          type: array
+          items: { $ref: "#/components/schemas/UnmanagedItem" }
+
+    UnmanagedItem:
+      type: object
+      required: [provider, providerItemId, kind, name, sizeBytes, state, firstSeenAt, lastSeenAt]
+      properties:
+        provider: { type: string }
+        providerItemId: { type: string }
+        kind: { type: string }
+        name: { type: string }
+        sizeBytes: { type: integer, format: int64 }
+        state: { type: string }
+        firstSeenAt: { type: string, format: date-time }
+        lastSeenAt: { type: string, format: date-time }
+
+    OutboxMessageList:
+      type: object
+      required: [messages]
+      properties:
+        messages:
+          type: array
+          items: { $ref: "#/components/schemas/OutboxMessage" }
+
+    OutboxMessage:
+      type: object
+      required: [id, kind, remoteItemId, attempts, lastError, createdAt, parkedAt]
+      properties:
+        id: { type: integer, format: int64 }
+        kind: { type: string }
+        remoteItemId: { type: string }
+        attempts: { type: integer }
+        lastError: { type: string }
+        createdAt: { type: string, format: date-time }
+        parkedAt: { type: string, format: date-time }

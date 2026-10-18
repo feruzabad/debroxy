@@ -1,0 +1,17 @@
+### POST https://api.torbox.app/v1/api/torrents/createtorrent
+### extra-args: -F file=@sintel.torrent -F allow_zip=true
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.658407s  at: 2026-10-11T14:36:16Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 14:36:16 GMT
+content-type: application/json
+server: cloudflare
+vary: Accept-Encoding
+vary: Origin
+x-ratelimit-limit: 300
+x-ratelimit-remaining: 299
+x-ratelimit-reset: 1791729437.5934863
+retry-after: 61
+cf-cache-status: DYNAMIC
+
+{"success":true,"error":null,"detail":"Found Cached Torrent. Using Cached Torrent.","data":{"hash":"08ada5a7a6183aae1e09d831df6748d566095a10","torrent_id":116446015,"auth_id":"<redacted>"}}

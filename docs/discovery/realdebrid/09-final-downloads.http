@@ -1,0 +1,16 @@
+### GET https://api.real-debrid.com/rest/1.0/downloads
+### extra-args: 
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.123988s  at: 2026-10-11T13:49:29Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 13:49:29 GMT
+content-type: application/json
+vary: Accept-Encoding
+vary: Accept-Encoding
+x-served-by: B3
+x-total-count: 0
+x-cached: MISS
+
+[
+	
+]

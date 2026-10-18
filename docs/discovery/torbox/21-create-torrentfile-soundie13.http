@@ -1,0 +1,17 @@
+### POST https://api.torbox.app/v1/api/torrents/createtorrent
+### extra-args: -F file=@soundie-rambling-wreck-from-georgia-tech-archive.torrent -F allow_zip=true
+### user-agent: debroxy-discovery/0.1  status+time: 200 3.415317s  at: 2026-10-11T14:24:59Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 14:24:59 GMT
+content-type: application/json
+server: cloudflare
+vary: Accept-Encoding
+vary: Origin
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 57
+x-ratelimit-reset: 1791728888.422038
+retry-after: 189
+cf-cache-status: DYNAMIC
+
+{"success":true,"error":null,"detail":"Torrent Added Successfully","data":{"hash":"048c86afd57bad58e61589862237fb4210f256b6","torrent_id":116439449,"auth_id":"<redacted>"}}

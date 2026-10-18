@@ -1,0 +1,30 @@
+### GET https://api.real-debrid.com/rest/1.0/torrents?limit=1&page=1
+### extra-args: 
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.122719s  at: 2026-10-11T13:48:55Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 13:48:55 GMT
+content-type: application/json
+vary: Accept-Encoding
+vary: Accept-Encoding
+x-served-by: B6
+x-total-count: 3
+x-cached: MISS
+
+[
+	{
+		"id": "DI6NWHCOY5XAE",
+		"filename": "debian-13.7.0-amd64-netinst.iso",
+		"hash": "7acf8fb590b2060dd9c3146ef770169d593433b0",
+		"bytes": 792723456,
+		"host": "real-debrid.com",
+		"split": 2000,
+		"progress": 0,
+		"status": "magnet_conversion",
+		"added": "2026-10-11T15:39:40.000Z",
+		"links": [
+			
+		],
+		"seeders": 0
+	}
+]

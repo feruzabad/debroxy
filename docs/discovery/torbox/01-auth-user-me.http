@@ -1,0 +1,18 @@
+### GET https://api.torbox.app/v1/api/user/me?settings=true
+### extra-args: 
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.976850s  at: 2026-10-11T13:26:55Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 13:26:55 GMT
+content-type: application/json
+server: cloudflare
+vary: Accept-Encoding
+vary: Origin
+x-ratelimit-limit: 300
+x-ratelimit-remaining: 299
+x-ratelimit-reset: 1791725276.302892
+retry-after: 61
+speculation-rules: "/cdn-cgi/speculation"
+cf-cache-status: DYNAMIC
+
+{"success":true,"error":null,"detail":"Successfully retrieved your user information.","data":{"id":<redacted-account-id>,"auth_id":"<redacted>","created_at":"<redacted>","updated_at":"<redacted>","plan":1,"total_downloaded":<redacted>,"customer":"<redacted>","is_subscribed":true,"premium_expires_at":"<redacted>","cooldown_until":"<redacted>","email":"<redacted>","user_referral":"<redacted>","base_email":"<redacted-email>","total_bytes_downloaded":<redacted>,"total_bytes_uploaded":<redacted>,"torrents_downloaded":<redacted>,"web_downloads_downloaded":0,"usenet_downloads_downloaded":0,"additional_concurrent_slots":0,"long_term_seeding":false,"long_term_storage":false,"is_vendor":false,"vendor_id":null,"purchases_referred":0,"settings":{"email_notifications":false,"web_notifications":true,"mobile_notifications":true,"rss_notifications":true,"download_speed_in_tab":false,"show_tracker_in_torrent":false,"stremio_quality":[0,1,2,3,4,5,6,7,8],"stremio_resolution":[0,1,2,3],"stremio_language":[0,1,2,3,4,5,6,7,8,9,10,11,12,13],"stremio_cache":[1],"stremio_size_lower":0,"google_drive_folder_id":"","onedrive_save_path":"","discord_id":"<redacted>","discord_notifications":true,"stremio_allow_adult":false,"stremio_seed_torrents":3,"seed_torrents":1,"allow_zipped":true,"stremio_allow_zipped":false,"onefichier_folder_id":null,"gofile_folder_id":null,"jdownloader_notifications":true,"webhook_notifications":false,"webhook_url":"<redacted>","telegram_notifications":true,"telegram_id":"","mega_email":null,"mega_password":null,"stremio_sort":"seeders","cdn_selection":"auto","stremio_use_custom_search_engines":false,"stremio_result_sort":"torrent","webdav_use_local_files":false,"stremio_legacy_your_media":true,"stremio_only_your_media_streams":false,"stremio_disable_your_media_streams":true,"webdav_use_folder_view":true,"webdav_flatten":false,"stremio_limit_per_resolution_torrent":50,"stremio_limit_per_resolution_usenet":50,"stremio_size_upper":1000,"stremio_torrent_seeders_cutoff":3,"pixeldrain_api_key":"","onefichier_api_key":"","gofile_api_key":"","patreon_id":null,"stremio_wait_for_download_usenet":true,"stremio_wait_for_download_torrent":false,"stremio_disable_filtered_note":false,"stremio_emoji_in_description":false,"dashboard_filter":{"active":false,"cached":false,"queued":false,"private":false,"borrowed":false,"inactive":false,"torrents":false,"uncached":false,"uploading":false,"processing":false,"downloading":false,"web_downloads":false,"download_ready":false,"usenet_downloads":false},"web_player_always_transcode":false,"web_player_always_skip_intro":false,"web_player_audio_preferred_language":"null","web_player_subtitle_preferred_language":"null","web_player_disable_prestream_selector":false,"dashboard_sort":"default","web_player_disable_next_up_dialogue":false,"web_player_enable_scrobbling":false,"append_filename_to_links":true,"subscribed_email_segments":[]}}}

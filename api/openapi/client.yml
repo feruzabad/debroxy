@@ -1,0 +1,50 @@
+openapi: "3.0.3"
+info:
+  title: debroxy client configuration API
+  version: "1"
+  description: |
+    The public, read-only instance facts a client needs before login
+    (spec §10.4, C13-03). This file is not compiled into Go (no go:generate
+    directive); it exists so the web client can generate types from it.
+servers:
+  - url: /
+
+paths:
+  /api/v1/config:
+    get:
+      operationId: getClientConfig
+      summary: The instance's public client configuration
+      security: []
+      responses:
+        "200":
+          description: The client configuration
+          headers:
+            Cache-Control:
+              schema: { type: string, example: no-cache }
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ClientConfig" }
+
+components:
+  schemas:
+    ClientConfig:
+      type: object
+      required: [version, oidcEnabled, uploadLimitBytes, signedLinkTTLSeconds, passwordMinLength]
+      properties:
+        version:
+          type: string
+          description: The build version, "dev" when not set at build time
+        oidcEnabled:
+          type: boolean
+          description: Whether OIDC login is configured on this instance
+        uploadLimitBytes:
+          type: integer
+          format: int64
+          description: The largest .torrent or .nzb upload accepted
+        signedLinkTTLSeconds:
+          type: integer
+          format: int64
+          description: The lifetime of Signed Links
+        passwordMinLength:
+          type: integer
+          description: The shortest password identity accepts

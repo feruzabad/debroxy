@@ -1,0 +1,8 @@
+# Server for the webhook adapter (ddd-rules IN-1, IN-5). Not strict: the
+# body is read raw, so authenticity is checked before anything parses it.
+package: webhook
+generate:
+  std-http-server: true
+output-options:
+  include-operation-ids: [handleProviderWebhook]
+output: api.gen.go

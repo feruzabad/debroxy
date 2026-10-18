@@ -1,0 +1,17 @@
+### POST https://api.torbox.app/v1/api/torrents/createtorrent
+### extra-args: -F magnet=magnet:?xt=urn:btih:dcd7316b0fc937cd45d8f56eea8021043bfa74a0&dn=debian-mac-13.7.0-amd64-netinst.iso&tr=http%3A%2F%2Fbttracker.debian.org%3A6969%2Fannounce -F allow_zip=true
+### user-agent: debroxy-discovery/0.1  status+time: 200 4.103051s  at: 2026-10-11T13:28:10Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 13:28:10 GMT
+content-type: application/json
+server: cloudflare
+vary: Accept-Encoding
+vary: Origin
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 59
+x-ratelimit-reset: 1791728887.783154
+retry-after: 3597
+cf-cache-status: DYNAMIC
+
+{"success":true,"error":null,"detail":"Torrent Added Successfully","data":{"hash":"dcd7316b0fc937cd45d8f56eea8021043bfa74a0","torrent_id":116409053,"auth_id":"<redacted>"}}

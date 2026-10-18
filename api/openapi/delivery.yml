@@ -1,0 +1,156 @@
+openapi: "3.0.3"
+info:
+  title: debroxy delivery API
+  version: "1"
+  description: |
+    Signed Links and downloads (spec §7, §10.1). Every byte streams through
+    debroxy; links never contain provider data (ADR 0010).
+    Errors use the body {"slug", "message"} with the status mapping of ddd-rules IN-3.
+servers:
+  - url: /
+security:
+  - bearerAuth: []
+  - sessionCookie: []
+
+paths:
+  /api/v1/jobs/{jobId}/links:
+    parameters:
+      - $ref: "#/components/parameters/JobID"
+    post:
+      operationId: issueSignedLink
+      summary: A Signed Link to one file or the bundle of the owner's job
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/IssueSignedLinkRequest" }
+      responses:
+        "200":
+          description: The link
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/SignedLink" }
+        "400": { $ref: "#/components/responses/Error" }
+        "401": { $ref: "#/components/responses/Error" }
+        "404": { $ref: "#/components/responses/Error" }
+        "409": { $ref: "#/components/responses/Error" }
+
+  /api/v1/jobs/{jobId}/links/all:
+    parameters:
+      - $ref: "#/components/parameters/JobID"
+    post:
+      operationId: issueSignedLinksForAllFiles
+      summary: One link per file in stored order, or one bundle link (ADR 0011, ADR 0018)
+      responses:
+        "200":
+          description: The links
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/SignedLinkList" }
+        "401": { $ref: "#/components/responses/Error" }
+        "404": { $ref: "#/components/responses/Error" }
+        "409": { $ref: "#/components/responses/Error" }
+
+  /dl/{token}/{name}:
+    parameters:
+      - name: token
+        in: path
+        required: true
+        schema: { type: string }
+      - name: name
+        in: path
+        required: true
+        description: Cosmetic and untrusted; outside the signature (ADR 0010 rule 13)
+        schema: { type: string }
+    get:
+      operationId: download
+      summary: Stream the target (Signed Link; no session needed)
+      security: []
+      responses:
+        "200": { description: The whole target }
+        "206": { description: The requested range }
+        "403": { $ref: "#/components/responses/Error" }
+        "404": { $ref: "#/components/responses/Error" }
+        "409": { $ref: "#/components/responses/Error" }
+        "416": { description: The range cannot be satisfied }
+        "502": { $ref: "#/components/responses/Error" }
+        "503": { $ref: "#/components/responses/Error" }
+    head:
+      operationId: downloadHead
+      summary: The headers of the target, with the same checks as a download
+      security: []
+      responses:
+        "200": { description: The headers }
+        "206": { description: The headers of the requested range }
+        "403": { description: Invalid or expired link }
+        "404": { description: Unknown job or target }
+        "409": { description: Target not available }
+        "502": { description: Provider unavailable }
+        "503": { description: Too many streams }
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    sessionCookie:
+      type: apiKey
+      in: cookie
+      name: debroxy_session
+
+  parameters:
+    JobID:
+      name: jobId
+      in: path
+      required: true
+      schema: { type: string }
+
+  responses:
+    Error:
+      description: Error
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+
+  schemas:
+    Error:
+      type: object
+      required: [slug, message]
+      properties:
+        slug: { type: string, example: too-many-streams }
+        message: { type: string }
+        retryAfter:
+          type: integer
+          minimum: 1
+          description: Whole seconds to wait before retrying, when the server knows it (ADR 0020).
+
+    IssueSignedLinkRequest:
+      type: object
+      required: [target]
+      properties:
+        target: { $ref: "#/components/schemas/LinkTarget" }
+
+    LinkTarget:
+      type: object
+      description: Either fileId, or bundle set to true
+      properties:
+        fileId: { type: string }
+        bundle: { type: boolean }
+
+    SignedLink:
+      type: object
+      required: [url, expiresAt, rangeSupported]
+      properties:
+        url: { type: string }
+        expiresAt: { type: string, format: date-time }
+        rangeSupported: { type: boolean }
+        fileId: { type: string }
+        bundle: { type: boolean }
+
+    SignedLinkList:
+      type: object
+      required: [links]
+      properties:
+        links:
+          type: array
+          items: { $ref: "#/components/schemas/SignedLink" }

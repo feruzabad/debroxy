@@ -1,0 +1,49 @@
+### GET https://api.real-debrid.com/rest/1.0/torrents/info/JU4TNWHCAZXAA
+### extra-args: 
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.158062s  at: 2026-10-11T14:38:52Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 14:38:52 GMT
+content-type: application/json
+vary: Accept-Encoding
+vary: Accept-Encoding
+x-served-by: B1
+x-cached: MISS
+
+{
+	"id": "JU4TNWHCAZXAA",
+	"filename": "Big Buck Bunny",
+	"original_filename": "Big Buck Bunny",
+	"hash": "dd8255ecdc7ca55fb0bbf81323d87062db1f6d1c",
+	"bytes": 276445467,
+	"original_bytes": 276445467,
+	"host": "real-debrid.com",
+	"split": 2000,
+	"progress": 100,
+	"status": "downloaded",
+	"added": "2026-10-11T16:38:48.000Z",
+	"files": [
+		{
+			"id": 1,
+			"path": "\/Big Buck Bunny.en.srt",
+			"bytes": 140,
+			"selected": 1
+		},
+		{
+			"id": 2,
+			"path": "\/Big Buck Bunny.mp4",
+			"bytes": 276134947,
+			"selected": 1
+		},
+		{
+			"id": 3,
+			"path": "\/poster.jpg",
+			"bytes": 310380,
+			"selected": 1
+		}
+	],
+	"links": [
+		"https:\/\/real-debrid.com\/d\/<redacted>"
+	],
+	"ended": "2025-12-28T11:17:49.000Z"
+}

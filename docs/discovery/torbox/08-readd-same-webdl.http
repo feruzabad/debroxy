@@ -1,0 +1,17 @@
+### POST https://api.torbox.app/v1/api/webdl/createwebdownload
+### extra-args: -F link=https://archive.org/download/AvengeDe1942/AvengeDe1942_512kb.mp4
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.472285s  at: 2026-10-11T13:41:00Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 13:41:00 GMT
+content-type: application/json
+server: cloudflare
+vary: Accept-Encoding
+vary: Origin
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 57
+x-ratelimit-reset: 1791729615.633374
+retry-after: 3555
+cf-cache-status: DYNAMIC
+
+{"success":true,"error":null,"detail":"Found cached web download. Using cached download.","data":{"hash":"11174b255e3c8dfa00e77afbdd7c3d4e","webdownload_id":1975274,"auth_id":"<redacted>"}}

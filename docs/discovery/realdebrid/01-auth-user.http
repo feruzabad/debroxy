@@ -1,0 +1,23 @@
+### GET https://api.real-debrid.com/rest/1.0/user
+### extra-args: 
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.224050s  at: 2026-10-11T13:26:55Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 13:26:55 GMT
+content-type: application/json
+vary: Accept-Encoding
+vary: Accept-Encoding
+x-served-by: B2
+x-cached: MISS
+
+{
+	"id": <redacted-account-id>,
+	"username": "<redacted>",
+	"email": "<redacted>",
+	"points": <redacted>,
+	"locale": "<redacted>",
+	"avatar": "<redacted>",
+	"type": "premium",
+	"premium": <redacted>,
+	"expiration": "<redacted>"
+}

@@ -1,0 +1,13 @@
+.git
+.idea
+bin
+docs
+*.db
+*.db-*
+*.db.lock
+.env
+compose.yaml
+Dockerfile
+web/node_modules
+web/test-results
+web/playwright-report

@@ -1,0 +1,28 @@
+# sqlc generates one query package per context into its adapters/out/sqlite
+# tree (ddd-rules OUT-2). All contexts share the schema in migrations/.
+version: "2"
+sql:
+  - engine: sqlite
+    schema: migrations
+    queries: internal/identity/adapters/out/sqlite/queries
+    gen:
+      go:
+        package: sqlcgen
+        out: internal/identity/adapters/out/sqlite/internal/sqlcgen
+        omit_unused_structs: true # no structs for other contexts' tables
+  - engine: sqlite
+    schema: migrations
+    queries: internal/provider/adapters/out/sqlite/queries
+    gen:
+      go:
+        package: sqlcgen
+        out: internal/provider/adapters/out/sqlite/internal/sqlcgen
+        omit_unused_structs: true
+  - engine: sqlite
+    schema: migrations
+    queries: internal/job/adapters/out/sqlite/queries
+    gen:
+      go:
+        package: sqlcgen
+        out: internal/job/adapters/out/sqlite/internal/sqlcgen
+        omit_unused_structs: true

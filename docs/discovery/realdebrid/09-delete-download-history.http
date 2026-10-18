@@ -1,0 +1,9 @@
+### DELETE https://api.real-debrid.com/rest/1.0/downloads/delete/RIWIGM27SJ7SK
+### extra-args: 
+### user-agent: debroxy-discovery/0.1  status+time: 204 0.125279s  at: 2026-10-11T13:49:29Z
+
+HTTP/2 204 
+date: Sun, 11 Oct 2026 13:49:29 GMT
+x-served-by: B2
+
+

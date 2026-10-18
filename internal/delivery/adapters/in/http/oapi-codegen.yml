@@ -1,0 +1,10 @@
+# Server for the Signed Link API (ddd-rules IN-1). Downloads have their own
+# adapter in ../download.
+package: http
+generate:
+  std-http-server: true
+  strict-server: true
+  models: true
+output-options:
+  exclude-operation-ids: [download, downloadHead]
+output: api.gen.go

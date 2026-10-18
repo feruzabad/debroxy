@@ -1,0 +1,17 @@
+### POST https://api.torbox.app/v1/api/torrents/createtorrent
+### extra-args: -F magnet=magnet:?xt=urn:btih:7acf8fb590b2060dd9c3146ef770169d593433b0&dn=debian-13.7.0-amd64-netinst.iso
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.763331s  at: 2026-10-11T18:28:19Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 18:28:19 GMT
+content-type: application/json
+server: cloudflare
+vary: Accept-Encoding
+vary: Origin
+x-ratelimit-limit: 300
+x-ratelimit-remaining: 299
+x-ratelimit-reset: 1791743360.536632
+retry-after: 61
+cf-cache-status: DYNAMIC
+
+{"success":true,"error":null,"detail":"Found Cached Torrent. Using Cached Torrent.","data":{"hash":"7acf8fb590b2060dd9c3146ef770169d593433b0","torrent_id":116601526,"auth_id":"<redacted>"}}

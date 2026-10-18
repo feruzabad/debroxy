@@ -1,0 +1,25 @@
+# Example deployment: copy .env.example to .env, edit it, then
+#   docker compose up -d
+# All state is in the debroxy-data volume.
+services:
+  debroxy:
+    build: .
+    image: debroxy:dev
+    env_file: .env
+    ports:
+      - "8080:8080"
+    volumes:
+      - debroxy-data:/data
+    restart: unless-stopped
+    # Secrets as files instead of variables: set e.g.
+    # DEBROXY_PROVIDER_TORBOX_API_KEY_FILE=/run/secrets/torbox_api_key in .env
+    # (and drop DEBROXY_PROVIDER_TORBOX_API_KEY), then:
+    # secrets:
+    #   - torbox_api_key
+
+volumes:
+  debroxy-data:
+
+# secrets:
+#   torbox_api_key:
+#     file: ./secrets/torbox_api_key

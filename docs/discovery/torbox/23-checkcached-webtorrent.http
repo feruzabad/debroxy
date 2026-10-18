@@ -1,0 +1,18 @@
+### GET https://api.torbox.app/v1/api/torrents/checkcached?hash=dd8255ecdc7ca55fb0bbf81323d87062db1f6d1c,c9e15763f722f23e98a29decdfae341b98d53056,08ada5a7a6183aae1e09d831df6748d566095a10,209c8226b299b308beaf2b9cd3fb49212dbd13ec,a88fda5954e89178c372716a6a78b8180ed4dad3,d984f67af9917b214cd8b6048ab5624c7df6a07a&format=object
+### extra-args: 
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.301016s  at: 2026-10-11T14:35:59Z
+
+HTTP/2 200 
+date: Sun, 11 Oct 2026 14:35:59 GMT
+content-type: application/json
+server: cloudflare
+vary: Accept-Encoding
+vary: Origin
+x-ratelimit-limit: 300
+x-ratelimit-remaining: 299
+x-ratelimit-reset: 1791729420.4841044
+retry-after: 61
+speculation-rules: "/cdn-cgi/speculation"
+cf-cache-status: DYNAMIC
+
+{"success":true,"error":null,"detail":"Torrent cache status retrieved successfully.","data":{"08ada5a7a6183aae1e09d831df6748d566095a10":{"name":"Sintel","size":129302391,"hash":"08ada5a7a6183aae1e09d831df6748d566095a10"},"209c8226b299b308beaf2b9cd3fb49212dbd13ec":{"name":"Tears of Steel","size":571426507,"hash":"209c8226b299b308beaf2b9cd3fb49212dbd13ec"},"a88fda5954e89178c372716a6a78b8180ed4dad3":{"name":"WIRED CD","size":56070710,"hash":"a88fda5954e89178c372716a6a78b8180ed4dad3"},"c9e15763f722f23e98a29decdfae341b98d53056":{"name":"Cosmos Laundromat","size":220864086,"hash":"c9e15763f722f23e98a29decdfae341b98d53056"},"dd8255ecdc7ca55fb0bbf81323d87062db1f6d1c":{"name":"Big Buck Bunny","size":276445467,"hash":"dd8255ecdc7ca55fb0bbf81323d87062db1f6d1c"}}}

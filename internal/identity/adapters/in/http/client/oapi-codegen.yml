@@ -1,0 +1,6 @@
+# Client used by the identity component tests (ddd-rules T-6).
+package: client
+generate:
+  client: true
+  models: true
+output: client/client.gen.go

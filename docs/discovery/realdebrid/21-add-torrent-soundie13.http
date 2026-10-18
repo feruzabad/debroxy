@@ -1,0 +1,13 @@
+### PUT https://api.real-debrid.com/rest/1.0/torrents/addTorrent
+### extra-args: --data-binary @soundie-rambling-wreck-from-georgia-tech-archive.torrent -H Content-Type: application/x-bittorrent
+### user-agent: debroxy-discovery/0.1  status+time: 201 1.188712s  at: 2026-10-11T14:24:41Z
+
+HTTP/2 201 
+date: Sun, 11 Oct 2026 14:24:41 GMT
+content-type: application/json
+x-served-by: B2
+
+{
+	"id": "NGHAU27TFFGOS",
+	"uri": "https:\/\/api.real-debrid.com\/rest\/1.0\/torrents\/info\/NGHAU27TFFGOS"
+}

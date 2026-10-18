@@ -1,0 +1,14 @@
+### POST https://api.real-debrid.com/rest/1.0/torrents/addMagnet
+### extra-args: --data-urlencode magnet=magnet:?xt=urn:btih:7acf8fb590b2060dd9c3146ef770169d593433b0&dn=debian-13.7.0-amd64-netinst.iso&tr=http%3A%2F%2Fbttracker.debian.org%3A6969%2Fannounce
+### user-agent: debroxy-discovery/0.1  status+time: 201 0.218485s  at: 2026-10-11T13:39:40Z
+
+HTTP/2 201 
+date: Sun, 11 Oct 2026 13:39:40 GMT
+content-type: application/json
+x-served-by: B3
+x-cached: MISS
+
+{
+	"id": "XOW3B5KGBF226",
+	"uri": "https:\/\/api.real-debrid.com\/rest\/1.0\/torrents\/info\/XOW3B5KGBF226"
+}

@@ -1,0 +1,27 @@
+### HEAD https://nexus-321.ceur.tb-cdn.st/dld/9b811d91-2eb9-4ac9-89e4-4b4f8bf1e5ff?<redacted-query><redacted-api-key>
+### extra-args: -I
+### user-agent: debroxy-discovery/0.1  status+time: 200 0.132783s  at: 2026-10-11T14:36:35Z
+
+HTTP/1.1 200 OK
+Date: Sun, 11 Oct 2026 14:36:35 GMT
+Content-Type: video/mp4
+Content-Length: 129241752
+Connection: keep-alive
+vary: Origin, Access-Control-Request-Method, Access-Control-Request-Headers
+content-disposition: attachment; filename="Sintel.mp4"; filename*=UTF-8''Sintel.mp4
+server: Nexus/1.0
+etag: "69024dd0-7b41298"
+accept-ranges: bytes
+
+HTTP/1.1 200 OK
+Date: Sun, 11 Oct 2026 14:36:35 GMT
+Content-Type: video/mp4
+Content-Length: 129241752
+Connection: keep-alive
+vary: Origin, Access-Control-Request-Method, Access-Control-Request-Headers
+content-disposition: attachment; filename="Sintel.mp4"; filename*=UTF-8''Sintel.mp4
+server: Nexus/1.0
+etag: "69024dd0-7b41298"
+accept-ranges: bytes
+
+
