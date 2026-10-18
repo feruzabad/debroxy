@@ -1,0 +1,44 @@
+# Runs the same checks as `make check` and `make web-check` on every pull
+# request and on main. Both jobs are required to merge into main.
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  go:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version: "1.27.2"
+
+      # build, vet, race tests (including the architecture test), lint
+      - run: make check
+
+  web:
+    # The visual baselines are rendered on linux/arm64; running there keeps
+    # font rendering identical.
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # lint, types, unit tests, audit, build, size budgets, visual tests
+      - run: make web-check

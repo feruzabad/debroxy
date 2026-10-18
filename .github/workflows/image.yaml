@@ -1,4 +1,5 @@
-# Builds the container image for linux/amd64 and linux/arm64 on every push.
+# Builds the container image for linux/amd64 and linux/arm64 on every pull
+# request and on main; the build is required to merge into main.
 # A tag v* also pushes it to ghcr.io/<owner>/debroxy:<version> and :latest.
 #
 # Runs on a GitHub-hosted amd64 runner. Multi-arch needs no emulation: the
@@ -6,8 +7,9 @@
 name: image
 
 on:
+  pull_request:
   push:
-    branches: ["**"]
+    branches: [main]
     tags: ["v*"]
 
 permissions:
