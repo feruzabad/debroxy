@@ -20,8 +20,10 @@ async function setTheme(page: Page, theme: "light" | "dark"): Promise<void> {
   }, theme);
 }
 
+// The time stays at NOW: a running clock turns "now" into "3 seconds ago" on a
+// slow machine and shifts the table columns.
 async function installClock(page: Page): Promise<void> {
-  await page.clock.install({ time: new Date(NOW_MS) });
+  await page.clock.setFixedTime(new Date(NOW_MS));
 }
 
 export async function snapshot(page: Page, name: string): Promise<void> {
