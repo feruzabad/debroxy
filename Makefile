@@ -5,7 +5,7 @@ GO             ?= go
 SQLC_IMAGE     := sqlc/sqlc:1.31.1
 GOLANGCI_IMAGE := golangci/golangci-lint:v2.14.0
 NODE_IMAGE     := node:24.21.0-alpine
-PLAYWRIGHT_IMAGE := mcr.microsoft.com/playwright:v1.64.0-noble
+PLAYWRIGHT_IMAGE := mcr.microsoft.com/playwright:v1.64.1-noble
 
 # Generators write into the source tree, so they run as the host user.
 DOCKER_GENERATE := docker run --rm --user $(shell id -u):$(shell id -g) -e HOME=/tmp -v $(CURDIR):/src -w /src
