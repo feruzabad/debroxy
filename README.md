@@ -113,3 +113,7 @@ Everything lives in one SQLite file, `debroxy.db` in `DEBROXY_DATA_DIR` (the `/d
 - **Parked deletions** (`GET /api/v1/admin/outbox`): a provider item debroxy failed to delete 20 times. It still exists at the provider and counts against the account's limits; delete it there by hand.
 - **Logs with `operator_alert=credentials`**: the provider rejected the API key.
 - **Stream caps** (`DEBROXY_DELIVERY_MAX_STREAMS_PER_USER`, `DEBROXY_DELIVERY_MAX_CONCURRENT_STREAMS`): every download passes through the debroxy host, so size bandwidth for the expected number of concurrent streams.
+
+## License
+
+[MIT](LICENSE)
