@@ -1,0 +1,36 @@
+name: Bug report
+description: Something does not work as documented.
+labels: [bug]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: debroxy version
+      description: The image tag, or the version shown in the web app.
+      placeholder: "0.1.0"
+    validations: {required: true}
+  - type: dropdown
+    id: provider
+    attributes:
+      label: Provider
+      multiple: true
+      options: [TorBox, Real-Debrid, Not provider-related]
+    validations: {required: true}
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations: {required: true}
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. …
+        2. …
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Relevant lines from `docker compose logs debroxy`. Remove API keys, tokens, `/dl/` links and CDN URLs first.
+      render: text
