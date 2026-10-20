@@ -7,9 +7,11 @@
 # build platform; Go cross-compiles for the target, and the final stage only
 # copies files.
 
-FROM --platform=$BUILDPLATFORM node:24.21.0-alpine AS web
+FROM --platform=$BUILDPLATFORM node:26.12.0-alpine AS web
 WORKDIR /src/web
 ENV COREPACK_HOME=/tmp/corepack
+# Node no longer bundles corepack (25+); keep in step with COREPACK_VERSION in the Makefile.
+RUN npm install --global --silent corepack@0.36.0
 COPY web/package.json web/pnpm-lock.yaml ./
 RUN corepack pnpm install --frozen-lockfile
 COPY web/ ./
