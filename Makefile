@@ -6,6 +6,8 @@ SQLC_IMAGE     := sqlc/sqlc:1.31.1
 GOLANGCI_IMAGE := golangci/golangci-lint:v2.14.0
 NODE_IMAGE     := node:24.21.0-alpine
 PLAYWRIGHT_IMAGE := mcr.microsoft.com/playwright:v1.64.1-noble
+# Node no longer bundles corepack (25+), so it is installed from npm.
+COREPACK_VERSION := 0.36.0
 
 # Generators write into the source tree, so they run as the host user.
 DOCKER_GENERATE := docker run --rm --user $(shell id -u):$(shell id -g) -e HOME=/tmp -v $(CURDIR):/src -w /src
@@ -13,15 +15,17 @@ DOCKER_GENERATE := docker run --rm --user $(shell id -u):$(shell id -g) -e HOME=
 DOCKER_LINT := docker run --rm -v $(CURDIR):/src -w /src \
 	-v debroxy-lint-go-cache:/cache -e GOCACHE=/cache/go-build -e GOMODCACHE=/cache/mod \
 	-e GOLANGCI_LINT_CACHE=/cache/golangci-lint
-# Browser client commands run pnpm (through corepack, put on PATH so package
-# scripts can call it) in the pinned Node image, as the host user.
+# Browser client commands run pnpm (through the pinned corepack, put on PATH so
+# package scripts can call it) in the pinned Node image, as the host user.
+PNPM_SH := mkdir -p /tmp/bin && npm install --global --silent --prefix /tmp/corepack-cli corepack@$(COREPACK_VERSION) \
+	&& /tmp/corepack-cli/bin/corepack enable --install-directory /tmp/bin && PATH=/tmp/bin:$$PATH exec pnpm "$$@"
 DOCKER_WEB := docker run --rm --user $(shell id -u):$(shell id -g) -e HOME=/tmp -e COREPACK_HOME=/tmp/corepack \
 	-e npm_config_store_dir=/repo/web/node_modules/.pnpm-store -v $(CURDIR):/repo -w /repo/web \
-	$(NODE_IMAGE) sh -c 'mkdir -p /tmp/bin && corepack enable --install-directory /tmp/bin && PATH=/tmp/bin:$$PATH exec pnpm "$$@"' pnpm
+	$(NODE_IMAGE) sh -c '$(PNPM_SH)' pnpm
 # Visual regression runs in the pinned Playwright image (its browsers are at /ms-playwright).
 DOCKER_VISUAL := docker run --rm --user $(shell id -u):$(shell id -g) -e HOME=/tmp -e COREPACK_HOME=/tmp/corepack \
 	-e npm_config_store_dir=/repo/web/node_modules/.pnpm-store -v $(CURDIR):/repo -w /repo/web \
-	$(PLAYWRIGHT_IMAGE) sh -c 'mkdir -p /tmp/bin && corepack enable --install-directory /tmp/bin && PATH=/tmp/bin:$$PATH exec pnpm "$$@"' pnpm
+	$(PLAYWRIGHT_IMAGE) sh -c '$(PNPM_SH)' pnpm
 
 .PHONY: check build vet test lint generate migrate-new docker web-install web web-gen web-test web-check web-visual web-visual-update
 
