@@ -4,7 +4,7 @@
 GO             ?= go
 SQLC_IMAGE     := sqlc/sqlc:1.31.1
 GOLANGCI_IMAGE := golangci/golangci-lint:v2.14.0
-NODE_IMAGE     := node:24.21.0-alpine
+NODE_IMAGE     := node:26.12.0-alpine
 PLAYWRIGHT_IMAGE := mcr.microsoft.com/playwright:v1.64.1-noble
 # Node no longer bundles corepack (25+), so it is installed from npm.
 COREPACK_VERSION := 0.36.0
