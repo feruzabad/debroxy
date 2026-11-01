@@ -7,7 +7,7 @@
 # build platform; Go cross-compiles for the target, and the final stage only
 # copies files.
 
-FROM --platform=$BUILDPLATFORM node:26.12.1-alpine AS web
+FROM --platform=$BUILDPLATFORM node:26.13.0-alpine AS web
 WORKDIR /src/web
 ENV COREPACK_HOME=/tmp/corepack
 # Node no longer bundles corepack (25+); keep in step with COREPACK_VERSION in the Makefile.
@@ -29,12 +29,12 @@ RUN CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH go build -trimpath -ldflags=
 
 # The debroxy user and /data, made on the build platform; the same Alpine
 # release, so its account files fit the target image.
-FROM --platform=$BUILDPLATFORM alpine:3.24.2 AS accounts
+FROM --platform=$BUILDPLATFORM alpine:3.24.3 AS accounts
 RUN addgroup -S -g 65532 debroxy \
 	&& adduser -S -D -H -u 65532 -G debroxy -h /data debroxy \
 	&& install -d -o debroxy -g debroxy -m 0700 /data
 
-FROM alpine:3.24.2
+FROM alpine:3.24.3
 # The base image already carries the CA bundle (ca-certificates-bundle).
 # A new named volume takes /data's owner: the non-root debroxy user.
 COPY --from=accounts /etc/passwd /etc/group /etc/shadow /etc/
