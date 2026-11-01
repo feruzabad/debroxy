@@ -7,7 +7,7 @@
 # build platform; Go cross-compiles for the target, and the final stage only
 # copies files.
 
-FROM --platform=$BUILDPLATFORM node:26.12.0-alpine AS web
+FROM --platform=$BUILDPLATFORM node:26.12.1-alpine AS web
 WORKDIR /src/web
 ENV COREPACK_HOME=/tmp/corepack
 # Node no longer bundles corepack (25+); keep in step with COREPACK_VERSION in the Makefile.
@@ -17,7 +17,7 @@ RUN corepack pnpm install --frozen-lockfile
 COPY web/ ./
 RUN corepack pnpm run build
 
-FROM --platform=$BUILDPLATFORM golang:1.27.2-bookworm AS build
+FROM --platform=$BUILDPLATFORM golang:1.27.3-bookworm AS build
 ARG TARGETOS TARGETARCH
 WORKDIR /src
 COPY go.mod go.sum ./
